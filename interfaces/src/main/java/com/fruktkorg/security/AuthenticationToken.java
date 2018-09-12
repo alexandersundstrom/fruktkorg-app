@@ -3,14 +3,14 @@ package com.fruktkorg.security;
 import com.fruktkorg.model.Person;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 public class AuthenticationToken extends AbstractAuthenticationToken {
 
     private Person authenticatedUser;
 
     public AuthenticationToken(Person authenticatedUser) {
-        super(Arrays.asList());
+        super(new ArrayList<>());
         this.authenticatedUser = authenticatedUser;
     }
 

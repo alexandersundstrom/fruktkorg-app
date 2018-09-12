@@ -15,6 +15,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class AuthenticationFilter extends OncePerRequestFilter {
+    private static final String PERSON_NUMBER_HEADER = "X_PERSONR";
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
@@ -23,14 +25,14 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
         List<Person> persons = Arrays.asList(john, jane);
 
-        final String X_PERSONR = request.getHeader("X_PERSONR");
-        if (X_PERSONR == null) {
+        String personNumber = request.getHeader(PERSON_NUMBER_HEADER);
+        if (personNumber == null) {
             throw new SecurityException("X_PERSONR Was missing in Header");
         }
 
         Person loggedInUser = null;
         for (Person person : persons) {
-            if (person.getPersonNummer().equals(X_PERSONR)) {
+            if (person.getPersonNummer().equals(personNumber)) {
                 loggedInUser = person;
             }
         }

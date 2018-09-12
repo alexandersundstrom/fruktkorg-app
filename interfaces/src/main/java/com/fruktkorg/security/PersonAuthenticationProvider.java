@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class PersonAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        return (AuthenticationToken) authentication;
+        return authentication;
     }
 
     @Override

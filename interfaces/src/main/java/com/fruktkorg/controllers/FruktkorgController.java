@@ -2,6 +2,7 @@ package com.fruktkorg.controllers;
 
 import com.fruktkorg.model.Frukt;
 import com.fruktkorg.model.Fruktkorg;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +16,7 @@ import java.util.List;
 @RequestMapping("fruktkorg")
 public class FruktkorgController {
 
-    @RequestMapping()
+    @GetMapping()
     public List<Fruktkorg> findAll() {
         //TODO ADD validation for rights according to list on person object
 //        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -33,7 +34,7 @@ public class FruktkorgController {
         return Arrays.asList(hallen, fikaRummet);
     }
 
-    @RequestMapping("/{id}")
+    @GetMapping("/{id}")
     public Fruktkorg findById(@PathVariable int id) {
         Fruktkorg fruktkorg = new Fruktkorg();
         fruktkorg.setId(id);
@@ -42,7 +43,7 @@ public class FruktkorgController {
         return fruktkorg;
     }
 
-    @RequestMapping("/frukt/{type}")
+    @GetMapping("/frukt/{type}")
     public List<Fruktkorg> findByFrukt(@PathVariable String type) {
         Fruktkorg fruktkorg = new Fruktkorg();
         fruktkorg.setId(1);
