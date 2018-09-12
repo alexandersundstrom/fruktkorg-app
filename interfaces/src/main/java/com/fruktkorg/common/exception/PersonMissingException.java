@@ -1,4 +1,4 @@
-package com.fruktkorg.exception;
+package com.fruktkorg.common.exception;
 
 public class PersonMissingException extends Exception {
     private String personNumber;

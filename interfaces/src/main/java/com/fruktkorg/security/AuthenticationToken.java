@@ -1,6 +1,6 @@
 package com.fruktkorg.security;
 
-import com.fruktkorg.model.Person;
+import com.fruktkorg.common.model.Person;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package com.fruktkorg.security;
 
-import com.fruktkorg.exception.PersonMissingException;
-import com.fruktkorg.model.Person;
+import com.fruktkorg.common.exception.PersonMissingException;
+import com.fruktkorg.common.model.Person;
 import com.fruktkorg.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

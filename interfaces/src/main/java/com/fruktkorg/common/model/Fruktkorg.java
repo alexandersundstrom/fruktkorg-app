@@ -1,4 +1,4 @@
-package com.fruktkorg.model;
+package com.fruktkorg.common.model;
 
 import java.time.Instant;
 import java.util.ArrayList;
