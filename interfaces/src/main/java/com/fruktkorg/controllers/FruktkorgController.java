@@ -17,6 +17,10 @@ public class FruktkorgController {
 
     @RequestMapping()
     public List<Fruktkorg> findAll() {
+        //TODO ADD validation for rights according to list on person object
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        Person person = (Person) auth.getPrincipal();
+
         Fruktkorg hallen = new Fruktkorg();
         hallen.setId(1);
         hallen.setName("Hallen");
