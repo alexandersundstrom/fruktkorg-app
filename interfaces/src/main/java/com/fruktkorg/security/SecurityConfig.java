@@ -15,10 +15,12 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PersonAuthenticationProvider personAuthenticationProvider;
+    private final AuthenticationFilter authenticationFilter;
 
     @Autowired
-    public SecurityConfig(PersonAuthenticationProvider personAuthenticationProvider) {
+    public SecurityConfig(PersonAuthenticationProvider personAuthenticationProvider, AuthenticationFilter authenticationFilter) {
         this.personAuthenticationProvider = personAuthenticationProvider;
+        this.authenticationFilter = authenticationFilter;
     }
 
     @Override
@@ -29,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/")
             .authenticated()
             .and()
-            .addFilterBefore(new AuthenticationFilter(), BasicAuthenticationFilter.class);
+            .addFilterBefore(authenticationFilter, BasicAuthenticationFilter.class);
 
     }
 

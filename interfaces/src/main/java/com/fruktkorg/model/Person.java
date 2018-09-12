@@ -8,6 +8,12 @@ public class Person {
     private String name;
     private List<String> access;
 
+    public Person(String personNummer, String name, List<String> access) {
+        this.personNummer = personNummer;
+        this.name = name;
+        this.access = access;
+    }
+
     public String getPersonNummer() {
         return personNummer;
     }
@@ -29,12 +35,6 @@ public class Person {
     }
 
     public void setAccess(List<String> access) {
-        this.access = access;
-    }
-
-    public Person(String personNummer, String name, List<String> access) {
-        this.personNummer = personNummer;
-        this.name = name;
         this.access = access;
     }
 }

@@ -1,8 +1,12 @@
 package com.fruktkorg.security;
 
+import com.fruktkorg.exception.PersonMissingException;
 import com.fruktkorg.model.Person;
+import com.fruktkorg.service.PersonService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -10,33 +14,25 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
+@Component
 public class AuthenticationFilter extends OncePerRequestFilter {
-    private static final String PERSON_NUMBER_HEADER = "X_PERSONR";
+    private static final String PERSON_NUMBER_HEADER = "X-PERSONR";
+
+    @Autowired
+    private PersonService personService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
-        Person john = new Person("198803011234", "John Doe", Arrays.asList("admin", "sök"));
-        Person jane = new Person("199008011234", "Jane Doe", Collections.singletonList("sök"));
-
-        List<Person> persons = Arrays.asList(john, jane);
-
         String personNumber = request.getHeader(PERSON_NUMBER_HEADER);
         if (personNumber == null) {
-            throw new SecurityException("X_PERSONR Was missing in Header");
+            throw new SecurityException("X-PERSONR Was missing in Header");
         }
 
-        Person loggedInUser = null;
-        for (Person person : persons) {
-            if (person.getPersonNummer().equals(personNumber)) {
-                loggedInUser = person;
-            }
-        }
-        if (loggedInUser == null) {
+        Person loggedInUser;
+        try {
+            loggedInUser = personService.getPerson(personNumber);
+        } catch (PersonMissingException e) {
             throw new SecurityException("Person was not found");
         }
 
