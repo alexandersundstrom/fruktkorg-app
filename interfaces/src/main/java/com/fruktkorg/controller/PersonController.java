@@ -1,7 +1,6 @@
-package com.fruktkorg.controllers;
+package com.fruktkorg.controller;
 
 import com.fruktkorg.model.Person;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +13,7 @@ public class PersonController {
 
     @GetMapping
     public Person getLoggedInUser() {
-       Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-       return (Person) auth.getPrincipal();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return (Person) auth.getPrincipal();
     }
 }

@@ -1,4 +1,4 @@
-package com.fruktkorg.controllers;
+package com.fruktkorg.controller;
 
 import com.fruktkorg.model.Frukt;
 import com.fruktkorg.model.Fruktkorg;

@@ -6,9 +6,9 @@ public class Person {
 
     private String personNummer;
     private String name;
-    private List<String> access;
+    private List<Access> access;
 
-    public Person(String personNummer, String name, List<String> access) {
+    public Person(String personNummer, String name, List<Access> access) {
         this.personNummer = personNummer;
         this.name = name;
         this.access = access;
@@ -30,11 +30,11 @@ public class Person {
         this.name = name;
     }
 
-    public List<String> getAccess() {
+    public List<Access> getAccess() {
         return access;
     }
 
-    public void setAccess(List<String> access) {
+    public void setAccess(List<Access> access) {
         this.access = access;
     }
 }
