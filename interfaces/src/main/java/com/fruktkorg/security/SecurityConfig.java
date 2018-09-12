@@ -32,7 +32,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authenticated()
             .and()
             .addFilterBefore(authenticationFilter, BasicAuthenticationFilter.class);
-
     }
 
     @Override
