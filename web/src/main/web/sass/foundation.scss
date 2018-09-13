@@ -1,24 +1,18 @@
-.mainheader {
-  padding: 20px 0 14px;
-}
-
-.header_blue_line {
-  background-color: #f0f0f0;
-  border-bottom: 3px solid #168dc5;
-}
-
-.nomargin {
-  margin: 0 0 0 0;
-}
+@import "themes/standard";
 
 body {
-  background-color: #f0f0f0;
+  background-color: $background-color;
   color: black;
   font-family: arial, sans-serif;
   font-size: 0.75em;
   font-style: normal;
   font-weight: normal;
   line-height: normal;
+  margin: 0 0 0 0;
+}
+
+article, aside, details, figcaption, figure, footer, header, menu, nav, section {
+  display: block;
 }
 
 * {
@@ -27,6 +21,14 @@ body {
   -webkit-box-sizing: border-box;
 }
 
+.mainheader {
+  padding: 20px 0 14px;
+}
+
+.header_blue_line {
+  background-color: $background-color;
+  border-bottom: 3px solid #168dc5;
+}
 
 .spar-grid-gridx12xkolumner.spar-fluid-grid {
   max-width: 940px;
@@ -36,10 +38,6 @@ body {
 .spar-row {
   margin-left: auto;
   margin-right: auto;
-}
-
-article, aside, details, figcaption, figure, footer, header, menu, nav, section {
-  display: block;
 }
 
 .spar-row:before, .spar-row:after {
@@ -52,7 +50,7 @@ article, aside, details, figcaption, figure, footer, header, menu, nav, section 
 }
 
 .bg_ljusgra {
-  background-color: #f0f0f0;
+  background-color: $background-color;
 }
 
 .spar-fluid-grid .spar-row *[class*='spar-column']:first-of-type {
