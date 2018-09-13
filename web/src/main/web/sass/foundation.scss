@@ -1,7 +1,7 @@
 @import "themes/standard";
 
 body {
-  background-color: $background-color;
+  background-color: $background-white;
   color: black;
   font-family: arial, sans-serif;
   font-size: 0.75em;
@@ -26,7 +26,7 @@ article, aside, details, figcaption, figure, footer, header, menu, nav, section 
 }
 
 .header_blue_line {
-  background-color: $background-color;
+  background-color: $background-white;
   border-bottom: 3px solid #168dc5;
 }
 
@@ -50,7 +50,7 @@ article, aside, details, figcaption, figure, footer, header, menu, nav, section 
 }
 
 .bg_ljusgra {
-  background-color: $background-color;
+  background-color: $background-white;
 }
 
 .spar-fluid-grid .spar-row *[class*='spar-column']:first-of-type {
@@ -61,10 +61,46 @@ article, aside, details, figcaption, figure, footer, header, menu, nav, section 
   width: 100%;
 }
 
+.spar-grid-gridx12xkolumner {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .spar-column-3, .spar-column-4, .spar-column-5, .spar-column-7, .spar-column-12 {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   display: inline;
   float: left;
+}
+
+.innehall_padding_top_bottom {
+  background-color: $background-white;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+.contentFooter {
+  border-top: 1px solid #dddddd;
+  padding-bottom: 2px;
+  padding-top: 1.0em;
+}
+
+.bg_vit {
+  background-color: #ffffff;
+}
+
+.innehall_line_top {
+  border-bottom: 1px solid #dddddd;
+  padding-bottom: 1.0em;
+}
+
+.padding_top_line {
+  padding-bottom: 1.5em;
+  padding-top: 1.0em;
+}
+
+.innehall {
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+  padding: 1.0em 1.5em;
 }
