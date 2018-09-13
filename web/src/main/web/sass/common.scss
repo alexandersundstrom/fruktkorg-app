@@ -21,11 +21,11 @@ article, aside, details, figcaption, figure, footer, header, menu, nav, section 
   -webkit-box-sizing: border-box;
 }
 
-.bg_ljusgra {
+.background-primary {
   background-color: $lightgray;
 }
 
-.bg_vit {
+.background-secondary {
   background-color: $white;
 }
 
@@ -63,4 +63,8 @@ article, aside, details, figcaption, figure, footer, header, menu, nav, section 
 .grid-column-12.fluid-grid {
   max-width: 940px;
   width: 97%;
+}
+
+a:hover {
+  color: $blue;
 }
