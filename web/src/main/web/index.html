@@ -1,8 +1,53 @@
 <html>
 <head>
-  <link rel="stylesheet" href="sass_compiled/index.css">
+  <link rel="stylesheet" href="css/foundation.css">
+  <link rel="stylesheet" href="css/navigation.css">
+  <script src="js/jquery-3.3.1.min.js"></script>
 </head>
-<div>
-  <h1>Test</h1>
+
+<body class="spar-responsive nomargin">
+<div id="laddar_bakgrund" class="laddar_bakgrund" style="visibility: hidden;"></div>
+<div id="laddar_text" class="laddar_text" style="visibility: hidden;">Laddar...</div>
+<div class="mainheader ielayoutfix header_blue_line"></div>
+<div class="ielayoutfix menu_bar1" id="menu_bar">
+  <header class="spar-fluid-grid spar-grid-gridx12xkolumner menuwrapper">
+    <nav class="spar-row">
+      <nav class="spar-column-12">
+        <div class="mobilemenuinside spar-jcrmenu-portlet spar-portlet mobile_menu">
+          <div class="menu-container">
+            <ul class="nav">
+              <li id="menu_searchfrukt">
+                <a href="#searchFrukt" title="">Frukt Sök</a>
+              </li>
+              <li id="menu_listfruktkorgar">
+                <a href="#listFruktkorgar" title="">Fruktkorgar</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </nav>
+  </header>
 </div>
+
+<div class="ielayoutfix bg_ljusgra">
+  <div>
+    <div class="ielayoutfix innehall_padding_top_bottom">
+      <div class="spar-fluid-grid spar-grid-gridx12xkolumner ielayoutfix bg_vit">
+        <div id="innehall">
+          <div class="spar-row innehall_line_top"></div>
+          <div class="spar-row padding_top_line">
+
+            <div class="pagecontent spar-layout" id="spar-content">
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="spar-row contentFooter"></div>
+</div>
+</body>
+
 </html>
