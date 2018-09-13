@@ -48,6 +48,10 @@ article, aside, details, figcaption, figure, footer, header, menu, nav, section 
   margin-right: auto;
 }
 
+.column-12 {
+  width: 100%;
+}
+
 .column-3, .column-4, .column-5, .column-7, .column-12 {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -56,6 +60,7 @@ article, aside, details, figcaption, figure, footer, header, menu, nav, section 
   float: left;
 }
 
-.grid-column-12.fluid-grid .column-12 {
-  width: 100%;
+.grid-column-12.fluid-grid {
+  max-width: 940px;
+  width: 97%;
 }
