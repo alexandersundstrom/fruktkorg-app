@@ -16,6 +16,15 @@
   border-top: 1px solid $lightgray;
 }
 
+.menu-container li.active {
+  color: $blue;
+  border-bottom: 3px solid $blue;
+}
+
+.menu-container li.active a {
+  color: #168DC5;
+}
+
 .menu-container a {
   color: $darkgray;
   display: inline-block;
@@ -23,6 +32,11 @@
   text-decoration: none;
   text-transform: uppercase;
   padding: 15px 1.5em;
+}
+
+.menu-container a:hover {
+  color: $blue;
+  cursor: pointer;
 }
 
 .menu-container .nav {
