@@ -1,17 +1,16 @@
+@import "themes/standard";
 
 .menu_bar1 {
-  background-color: #ffffff;
+  background-color: $white;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
   position: relative;
   z-index: 1000;
 }
 
-
 .menuwrapper {
   margin-right: auto;
   margin-left: auto;
 }
-
 
 .mobilemenuinside {
   width: 100%;
@@ -40,12 +39,11 @@
   margin: 0;
   padding: 0;
   position: relative;
-  /* width: 100%; */
-  border-left: 1px solid #dddddd;
+  border-left: 1px solid $gray;
 }
 
 .menu-container li {
-  border-top: 1px solid #eee;
+  border-top: 1px solid $lightgray;
 }
 
 .menu-container .nav {
@@ -61,7 +59,7 @@
 }
 
 .menu-container a {
-  color: #4f4f4f;
+  color: $darkgray;
   display: inline-block;
   font: bold 110% Arial, serif;
   text-decoration: none;
