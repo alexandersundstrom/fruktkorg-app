@@ -1,13 +1,15 @@
 import dom from './transpiler';
 
-export const forkster = () => {
-  const ar = ['fork', 'blarg', 'things'];
-  return (
-    <div>
-      <p>Lorem Ipsum</p>
-      {ar.map(s => (
-        <p>{s}</p>
-      ))}
-    </div>
-  );
-};
+export class Test {
+  constructor(theme) {
+    this.theme = theme;
+  }
+
+  render() {
+    return (
+      <div>
+        <p>things</p>
+      </div>
+    )
+  }
+}

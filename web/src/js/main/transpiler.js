@@ -1,9 +1,16 @@
 // This is REQUIRED for the build jsx in the build step!
 // DO NOT EDIT unless you know what you are doing.
 
+import standard from '../../sass/themes/standard.scss';
+
 const dom = (tag, attrs, ...children) => {
   // Custom Components will be functions
   if (typeof tag === 'function') {
+    // Checks if the tag is a class, will then render the class
+    if(tag instanceof Object) {
+      return new tag(standard).render();
+    }
+
     const result = tag();
     return result === 'FRAGMENT' ? children : result;
   }
