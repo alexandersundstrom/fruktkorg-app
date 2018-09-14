@@ -41,7 +41,7 @@
 .menu-container a:hover {
   @include themify($themes) {
     color: themed('navigation-focused-link-color');
-    background-color: themed('navigation-focused-link-bg-color') ;
+    background-color: themed('navigation-focused-link-bg-color');
   }
 }
 
