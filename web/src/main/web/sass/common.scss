@@ -1,7 +1,9 @@
 @import "themes/standard";
 
 body {
-  background-color: $lightgray;
+  @include themify($themes) {
+    background-color: themed('lightgray');
+  }
   color: black;
   font-family: arial, sans-serif;
   font-size: 0.75em;
@@ -22,11 +24,15 @@ article, aside, details, figcaption, figure, footer, header, menu, nav, section 
 }
 
 .background-primary {
-  background-color: $lightgray;
+  @include themify($themes) {
+    background-color: themed('lightgray');
+  }
 }
 
 .background-secondary {
-  background-color: $white;
+  @include themify($themes) {
+    background-color: themed('white');
+  }
 }
 
 .row {
@@ -66,5 +72,7 @@ article, aside, details, figcaption, figure, footer, header, menu, nav, section 
 }
 
 a:hover {
-  color: $blue;
+  @include themify($themes) {
+    color: themed('blue');
+  }
 }

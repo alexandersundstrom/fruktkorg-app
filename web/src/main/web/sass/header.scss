@@ -1,7 +1,9 @@
 @import "themes/standard";
 
 .header {
+  @include themify($themes) {
+    background-color: themed('lightgray');
+    border-bottom: 3px solid themed('blue');
+  }
   padding: 20px 0 14px;
-  background-color: $lightgray;
-  border-bottom: 3px solid $blue;
 }
