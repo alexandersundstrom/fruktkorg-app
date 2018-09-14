@@ -1,17 +1,21 @@
 $themes: (
   standard: (
-    'lightgray': #f0f0f0,
-    'gray': #dddddd,
+    'primary-bg-color': #f0f0f0,
+    'secondary-bg-color': #ffffff,
+    'primary-line-color': #dddddd,
+    'secondary-line-color':#168dc5,
+    'focused-link': #168dc5,
     'darkgray': #4f4f4f,
-    'white': #ffffff,
-    'blue': #168dc5
+    'font-size': 0.9em
   ),
   high-contrast: (
-    'lightgray': #2a2afb,
-    'gray': #dddddd,
+    'primary-bg-color': white,
+    'secondary-bg-color': #ffffff,
+    'primary-line-color': black,
+    'secondary-line-color': black,
+    'focused-link': black,
     'darkgray': #4f4f4f,
-    'white': #ffffff,
-    'blue': #c50e10
+    'font-size': 1em
   )
 );
 

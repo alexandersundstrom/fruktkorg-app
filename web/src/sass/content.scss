@@ -1,8 +1,8 @@
-@import "themes/standard";
+@import 'themes/standard';
 
 .content {
   @include themify($themes) {
-    background-color: themed('lightgray');
+    background-color: themed('primary-bg-color');
   }
   padding-bottom: 20px;
   padding-top: 20px;
@@ -10,17 +10,17 @@
 
 .content-container {
   box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
-  padding: 1.0em 1.5em;
+  padding: 1em 1.5em;
 }
 
 .bottom-line {
   @include themify($themes) {
-    border-bottom: 1px solid themed('gray');
+    border-bottom: 1px solid themed('primary-line-color');
   }
-  padding-bottom: 1.0em;
+  padding-bottom: 1em;
 }
 
 .padded {
   padding-bottom: 1.5em;
-  padding-top: 1.0em;
+  padding-top: 1em;
 }

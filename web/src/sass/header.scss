@@ -1,9 +1,9 @@
-@import "themes/standard";
+@import 'themes/standard';
 
 .header {
   @include themify($themes) {
-    background-color: themed('lightgray');
-    border-bottom: 3px solid themed('blue');
+    background-color: themed('primary-bg-color');
+    border-bottom: 3px solid themed('secondary-line-color');
   }
   padding: 20px 0 14px;
 }
