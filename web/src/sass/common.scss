@@ -2,7 +2,7 @@
 
 body {
   @include themify($themes) {
-    background-color: themed('lightgray');
+    background-color: themed('primary-bg-color');
   }
   color: black;
   font-family: arial, sans-serif;
@@ -34,13 +34,13 @@ section {
 
 .background-primary {
   @include themify($themes) {
-    background-color: themed('lightgray');
+    background-color: themed('primary-bg-color');
   }
 }
 
 .background-secondary {
   @include themify($themes) {
-    background-color: themed('white');
+    background-color: themed('secondary-bg-color');
   }
 }
 
@@ -87,6 +87,6 @@ section {
 
 a:hover {
   @include themify($themes) {
-    color: themed('blue');
+    color: themed('focused-link');
   }
 }

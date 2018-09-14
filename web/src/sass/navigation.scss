@@ -2,7 +2,7 @@
 
 .menu {
   @include themify($themes) {
-    background-color: themed('white');
+    background-color: themed('secondary-bg-color');
   }
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
   position: relative;
@@ -16,21 +16,21 @@
 
 .menu-container li {
   @include themify($themes) {
-    border-top: 1px solid themed('lightgray');
+    border-top: 1px solid themed('primary-bg-color');
   }
 }
 
 .menu-container li.active {
   @include themify($themes) {
-    color: themed('blue');
-    border-bottom: 3px solid themed('blue');
+    color: themed('focused-link');
+    border-bottom: 3px solid themed('primary-line-color');
 
   }
 }
 
 .menu-container li.active a {
   @include themify($themes) {
-    color: themed('blue');
+    color: themed('focused-link');
   }
 }
 
@@ -47,7 +47,7 @@
 
 .menu-container a:hover {
   @include themify($themes) {
-    color: themed('blue');
+    color: themed('focused-link');
   }
 }
 
@@ -65,7 +65,7 @@
   padding: 0;
   position: relative;
   @include themify($themes) {
-    border-left: 1px solid themed('gray');
+    border-left: 1px solid themed('primary-line-color');
   }
 }
 

@@ -2,7 +2,7 @@
 
 .content {
   @include themify($themes) {
-    background-color: themed('lightgray');
+    background-color: themed('primary-bg-color');
   }
   padding-bottom: 20px;
   padding-top: 20px;
@@ -15,7 +15,7 @@
 
 .bottom-line {
   @include themify($themes) {
-    border-bottom: 1px solid themed('gray');
+    border-bottom: 1px solid themed('primary-line-color');
   }
   padding-bottom: 1.0em;
 }

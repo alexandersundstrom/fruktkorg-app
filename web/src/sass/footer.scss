@@ -2,7 +2,7 @@
 
 .contentFooter {
   @include themify($themes) {
-  border-top: 1px solid themed('gray');
+  border-top: 1px solid themed('primary-line-color');
   }
   padding-bottom: 2px;
   padding-top: 1.0em;
