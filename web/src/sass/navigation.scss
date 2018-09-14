@@ -1,7 +1,9 @@
 @import "themes/standard";
 
 .menu {
-  background-color: $white;
+  @include themify($themes) {
+    background-color: themed('white');
+  }
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
   position: relative;
   z-index: 1000;
@@ -13,20 +15,29 @@
 }
 
 .menu-container li {
-  border-top: 1px solid $lightgray;
+  @include themify($themes) {
+    border-top: 1px solid themed('lightgray');
+  }
 }
 
 .menu-container li.active {
-  color: $blue;
-  border-bottom: 3px solid $blue;
+  @include themify($themes) {
+    color: themed('blue');
+    border-bottom: 3px solid themed('blue');
+
+  }
 }
 
 .menu-container li.active a {
-  color: $blue;
+  @include themify($themes) {
+    color: themed('blue');
+  }
 }
 
 .menu-container a {
-  color: $darkgray;
+  @include themify($themes) {
+    color: themed('darkgray');
+  }
   display: inline-block;
   font: bold 110% Arial, serif;
   text-decoration: none;
@@ -35,7 +46,9 @@
 }
 
 .menu-container a:hover {
-  color: $blue;
+  @include themify($themes) {
+    color: themed('blue');
+  }
 }
 
 .menu-container .nav {
@@ -51,7 +64,9 @@
   margin: 0;
   padding: 0;
   position: relative;
-  border-left: 1px solid $gray;
+  @include themify($themes) {
+    border-left: 1px solid themed('gray');
+  }
 }
 
 .menu-container .nav li a {
