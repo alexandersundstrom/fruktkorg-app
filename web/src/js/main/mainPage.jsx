@@ -4,7 +4,7 @@ import '../../sass/footer.scss';
 import '../../sass/glass.scss';
 import '../../sass/header.scss';
 import '../../sass/navigation.scss';
-import '../../sass/themes/standard.scss';
+import '../../sass/themes/themes.scss';
 
 import dom from './transpiler';
 
@@ -52,7 +52,7 @@ export const MainPage = () => {
                   <div id="content-outer" className="content-container">
                     <div className="row bottom-line" />
                     <div className="row padded">
-                      <div id="content-inner" >Lorem ipsum...</div>
+                      <div id="content-inner" />
                     </div>
                   </div>
                 </div>
