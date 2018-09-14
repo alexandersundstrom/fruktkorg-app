@@ -5,6 +5,8 @@ $themes: (
     'primary-line-color': #dddddd,
     'secondary-line-color':#168dc5,
     'focused-link': #168dc5,
+    'navigation-focused-link-color': #168dc5,
+    'navigation-focused-link-bg-color': white,
     'darkgray': #4f4f4f,
     'font-size': 0.9em
   ),
@@ -14,6 +16,8 @@ $themes: (
     'primary-line-color': black,
     'secondary-line-color': black,
     'focused-link': black,
+    'navigation-focused-link-color': white,
+    'navigation-focused-link-bg-color': black,
     'darkgray': #4f4f4f,
     'font-size': 1em
   )

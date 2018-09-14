@@ -27,12 +27,6 @@
   }
 }
 
-.menu-container li.active a {
-  @include themify($themes) {
-    color: themed('focused-link');
-  }
-}
-
 .menu-container a {
   @include themify($themes) {
     color: themed('darkgray');
@@ -46,7 +40,8 @@
 
 .menu-container a:hover {
   @include themify($themes) {
-    color: themed('focused-link');
+    color: themed('navigation-focused-link-color');
+    background-color: themed('navigation-focused-link-bg-color') ;
   }
 }
 
