@@ -52,7 +52,7 @@ export const MainPage = () => {
                   <div id="content-outer" className="content-container">
                     <div className="row bottom-line" />
                     <div className="row padded">
-                      <div id="content-inner" />
+                      <div id="content-inner" >Lorem ipsum...</div>
                     </div>
                   </div>
                 </div>
