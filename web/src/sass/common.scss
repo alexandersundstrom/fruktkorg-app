@@ -3,14 +3,20 @@
 body {
   @include themify($themes) {
     background-color: themed('primary-bg-color');
+    font-size: themed('font-size');
   }
   color: black;
   font-family: arial, sans-serif;
-  font-size: 0.75em;
   font-style: normal;
   font-weight: normal;
   line-height: normal;
   margin: 0 0 0 0;
+}
+
+div {
+  @include themify($themes) {
+    font-size: themed('font-size');
+  }
 }
 
 article,

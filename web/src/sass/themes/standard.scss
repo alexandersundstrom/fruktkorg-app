@@ -3,15 +3,19 @@ $themes: (
     'primary-bg-color': #f0f0f0,
     'secondary-bg-color': #ffffff,
     'primary-line-color': #dddddd,
+    'secondary-line-color':#168dc5,
     'focused-link': #168dc5,
-    'darkgray': #4f4f4f
+    'darkgray': #4f4f4f,
+    'font-size': 0.9em
   ),
   high-contrast: (
     'primary-bg-color': white,
     'secondary-bg-color': #ffffff,
     'primary-line-color': black,
+    'secondary-line-color': black,
     'focused-link': black,
-    'darkgray': #4f4f4f
+    'darkgray': #4f4f4f,
+    'font-size': 1em
   )
 );
 

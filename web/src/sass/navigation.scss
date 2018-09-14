@@ -23,7 +23,7 @@
 .menu-container li.active {
   @include themify($themes) {
     color: themed('focused-link');
-    border-bottom: 3px solid themed('primary-line-color');
+    border-bottom: 3px solid themed('secondary-line-color');
   }
 }
 
