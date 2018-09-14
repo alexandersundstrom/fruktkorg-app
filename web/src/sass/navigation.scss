@@ -1,4 +1,4 @@
-@import "themes/standard";
+@import 'themes/standard';
 
 .menu {
   @include themify($themes) {
@@ -24,7 +24,6 @@
   @include themify($themes) {
     color: themed('focused-link');
     border-bottom: 3px solid themed('primary-line-color');
-
   }
 }
 
@@ -74,4 +73,3 @@
   display: block;
   padding: 15px 1.5em;
 }
-

@@ -1,4 +1,4 @@
-@import "themes/standard";
+@import 'themes/standard';
 
 .header {
   @include themify($themes) {
