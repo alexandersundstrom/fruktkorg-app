@@ -6,11 +6,14 @@ import '../sass/header.scss';
 import '../sass/navigation.scss';
 import '../sass/themes/standard.scss';
 
-import { forkster } from './main/test';
+import { dom } from './main/transpiler';
+
+import { forkster } from './main/test.jsx';
 
 const foo = () => {
   console.log('bar');
 };
 
 foo();
-forkster();
+
+document.getElementById('content-inner').appendChild(forkster());

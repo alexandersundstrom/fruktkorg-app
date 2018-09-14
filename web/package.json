@@ -20,6 +20,8 @@
   "homepage": "https://github.com/alexandersundstrom/fruktkorg-app#readme",
   "devDependencies": {
     "@babel/core": "^7.0.1",
+    "@babel/plugin-syntax-jsx": "^7.0.0",
+    "@babel/plugin-transform-react-jsx": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "babel-loader": "^8.0.2",
     "css-loader": "^1.0.0",
