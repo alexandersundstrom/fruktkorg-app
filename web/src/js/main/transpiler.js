@@ -1,3 +1,6 @@
+// This is REQUIRED for the build jsx in the build step!
+// DO NOT EDIT unless you know what you are doing.
+
 const dom = (tag, attrs, ...children) => {
   // Custom Components will be functions
   if (typeof tag === 'function') {
