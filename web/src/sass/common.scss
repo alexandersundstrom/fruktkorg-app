@@ -1,4 +1,4 @@
-@import "themes/standard";
+@import 'themes/standard';
 
 body {
   @include themify($themes) {
@@ -13,7 +13,16 @@ body {
   margin: 0 0 0 0;
 }
 
-article, aside, details, figcaption, figure, footer, header, menu, nav, section {
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+menu,
+nav,
+section {
   display: block;
 }
 
@@ -40,8 +49,9 @@ article, aside, details, figcaption, figure, footer, header, menu, nav, section 
   margin-right: auto;
 }
 
-.row:before, .row:after {
-  content: " ";
+.row:before,
+.row:after {
+  content: ' ';
   display: table;
 }
 
@@ -58,7 +68,11 @@ article, aside, details, figcaption, figure, footer, header, menu, nav, section 
   width: 100%;
 }
 
-.column-3, .column-4, .column-5, .column-7, .column-12 {
+.column-3,
+.column-4,
+.column-5,
+.column-7,
+.column-12 {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;

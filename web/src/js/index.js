@@ -6,7 +6,8 @@ import '../sass/header.scss';
 import '../sass/navigation.scss';
 import '../sass/themes/standard.scss';
 
-const foo = () => { console.log('bar'); };
+const foo = () => {
+  console.log('bar');
+};
 
 foo();
-
