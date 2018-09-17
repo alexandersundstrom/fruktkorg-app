@@ -1,7 +1,6 @@
 import dom from './transpiler';
 
 import '../../sass/common.scss';
-import '../../sass/header.scss';
 
 import { ThemeSelector } from '../components/ThemeSelector/ThemeSelector.jsx';
 import { Glass } from '../components/Glass/Glass.jsx';
