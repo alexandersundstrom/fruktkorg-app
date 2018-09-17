@@ -1,25 +1,26 @@
 export class Component {
   constructor() {
     this._self = null;
-    this.params = {};
+    this.props = {};
+    this.state = {};
     this.children = null;
   }
 
-  _init(children, params) {
+  _init(children, props) {
     this.children = children;
-    this.params = params || {};
+    this.props = props || {};
 
-    for (let property in this.params) {
-      if (this.params.hasOwnProperty(property)) {
-        this.params[`_${property}`] = this.params[property];
-        const prot = this.params;
+    for (let property in this.props) {
+      if (this.props.hasOwnProperty(property)) {
+        this.props[`_${property}`] = this.props[property];
+        const prot = this.props;
         Object.defineProperty(prot, property, {
           set: x => {
-            this.params[`_${property}`] = x;
+            this.props[`_${property}`] = x;
             this._reRender();
           },
           get: () => {
-            return this.params[`_${property}`];
+            return this.props[`_${property}`];
           }
         });
       }
@@ -27,9 +28,12 @@ export class Component {
   }
 
   _reRender() {
+    console.log('rerender 1', this._self);
     if (!this._self) {
+      console.log('rerender 2');
       return;
     }
+    console.log('rerender 3');
     const parent = this._self.parentElement || this._self[0].parentElement;
     if (!parent) {
       return;
@@ -56,7 +60,31 @@ export class Component {
           sibling.parentNode.insertBefore(node, sibling.nextSibling);
         }
       }
+    } else {
+      parent.replaceChild(node, oldSelf);
     }
+  }
+
+  setState(newState) {
+    for (let property in newState) {
+      if (newState.hasOwnProperty(property)) {
+        if(typeof this.state[property] !== 'undefined') {
+          this.state[`_${property}`] = newState[property];
+        } else {
+          this.state[`_${property}`] = newState[property];
+          const prot = this.state;
+          Object.defineProperty(prot, property, {
+            set: x => {},
+            get: () => {
+              return this.state[`_${property}`];
+            }
+          });
+        }
+      }
+    }
+
+    console.log('call rerender');
+    this._reRender();
   }
 
   render() {

@@ -22,7 +22,7 @@ const getActivities = permissions => {
 
 export class Navbar {
   render() {
-    const { permissions } = this.params;
+    const { permissions } = this.props;
     return (
       <div className="menu" id="menu_bar">
         <header className="fluid-grid grid-column-12">

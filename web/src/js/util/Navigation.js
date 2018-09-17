@@ -24,15 +24,3 @@ const getPageByPath = path => {
     }
   }
 };
-
-export const navigate = () => {
-  const page = getPageByPath(window.location.hash);
-
-  if (page) {
-    $('#content-inner').html(new page().render());
-  }
-};
-
-export const setupNavigationListener = () => {
-  window.addEventListener('hashchange', navigate);
-};

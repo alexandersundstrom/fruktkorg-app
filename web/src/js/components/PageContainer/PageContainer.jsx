@@ -1,7 +1,9 @@
 import dom from '../../main/transpiler';
+import { Component } from '../../components/Component'
 import './PageContainer.scss';
+import { NavigationContainer } from '../NavigationContainer/NavigationContainer.jsx';
 
-export class PageContainer {
+export class PageContainer extends Component {
   render() {
     return (
       <div className="background-primary">
@@ -10,7 +12,9 @@ export class PageContainer {
             <div id="content-outer" className="content-container">
               <div className="row bottom-line" />
               <div className="row padded">
-                <div id="content-inner" />
+                <div id="content-inner">
+                  <NavigationContainer />
+                </div>
               </div>
             </div>
           </div>

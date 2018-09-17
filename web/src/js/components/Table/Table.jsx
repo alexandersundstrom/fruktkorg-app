@@ -6,14 +6,14 @@ import './Table.scss';
 
 export class Table extends Component {
   render() {
-    const { columns, rows } = this.params;
+    const { columns, rows } = this.props;
 
     if (!columns) {
       return null;
     }
 
     return (
-      <Fragment>
+      <div>
         <table>
           {columns.map(column => {
             return (
@@ -34,7 +34,7 @@ export class Table extends Component {
               })
             : null}
         </table>
-      </Fragment>
+      </div>
     );
   }
 }

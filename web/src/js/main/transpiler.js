@@ -8,11 +8,11 @@ const dom = (tag, attrs, ...children) => {
   if (typeof tag === 'function') {
     if (tag instanceof Object) {
       const tagObject = new tag();
-      if (tagObject instanceof Component) {
+      if (tag.prototype instanceof Component) {
         tagObject._init(children, attrs);
 
         const self = tagObject.render();
-        console.log(self);
+        console.log('things', self);
         if (self) {
           tagObject._self = self;
         }
@@ -20,7 +20,7 @@ const dom = (tag, attrs, ...children) => {
       }
       if (tagObject.render && typeof tagObject.render === 'function') {
         tagObject.children = children;
-        tagObject.params = attrs;
+        tagObject.props = attrs;
         return tagObject.render();
       }
     }
