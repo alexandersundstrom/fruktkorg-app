@@ -9,7 +9,8 @@ export class SearchFruktPage extends Component {
     super();
     this.setState({
       columns: [],
-      rows: []
+      rows: [],
+      search: ''
     });
   }
 
@@ -24,14 +25,14 @@ export class SearchFruktPage extends Component {
             fruktAmount: fruktkorg.fruktList.length,
             lastChanged: fruktkorg.lastChanged
           }));
-          console.log(rows);
           this.setState({
             columns: [
               { name: 'Namn', key: 'name' },
               { name: 'Antal frukter', key: 'fruktAmount' },
               { name: 'Senast ändrad', key: 'lastChanged' }
             ],
-            rows
+            rows,
+            search: event.target.value
           });
         },
         error: error => {
@@ -42,11 +43,11 @@ export class SearchFruktPage extends Component {
   }
 
   render() {
-    const { columns, rows } = this.state;
-    console.log('render', this.state);
+    const { columns, rows, search } = this.state;
+
     return (
       <Fragment>
-        <input type="text" onKeyUp={(event) => this.handleSearch(event)} />
+        <input value={search} type="text" onKeyUp={(event) => this.handleSearch(event)} />
         <Table columns={columns} rows={rows} />
       </Fragment>
     );

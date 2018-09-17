@@ -28,12 +28,10 @@ export class Component {
   }
 
   _reRender() {
-    console.log('rerender 1', this._self);
     if (!this._self) {
-      console.log('rerender 2');
       return;
     }
-    console.log('rerender 3');
+    
     const parent = this._self.parentElement || this._self[0].parentElement;
     if (!parent) {
       return;
@@ -83,7 +81,6 @@ export class Component {
       }
     }
 
-    console.log('call rerender');
     this._reRender();
   }
 

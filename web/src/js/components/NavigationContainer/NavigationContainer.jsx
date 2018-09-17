@@ -32,7 +32,7 @@ export class NavigationContainer extends Component {
 	constructor() {
 		super();
 		this.setState({
-			hash: ''
+			hash: window.location.hash
 		});
 
 		window.addEventListener('hashchange', () => {

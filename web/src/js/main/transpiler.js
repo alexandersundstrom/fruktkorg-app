@@ -12,7 +12,6 @@ const dom = (tag, attrs, ...children) => {
         tagObject._init(children, attrs);
 
         const self = tagObject.render();
-        console.log('things', self);
         if (self) {
           tagObject._self = self;
         }
