@@ -5,8 +5,10 @@ import '../../sass/glass.scss';
 import '../../sass/header.scss';
 import '../../sass/navigation.scss';
 import '../../sass/themes/themes.scss';
+import '../components/ThemeSelector/ThemeSelector';
 
 import dom from './transpiler';
+import {ThemeSelector} from "../components/ThemeSelector/ThemeSelector";
 
 export const MainPage = () => {
   return (
@@ -20,7 +22,9 @@ export const MainPage = () => {
         Laddar...
       </div>
       <div id="root" className="theme-standard">
-        <div className="header" />
+        <div className="header">
+          <ThemeSelector/>
+        </div>
         <div className="menu" id="menu_bar">
           <header className="fluid-grid grid-column-12">
             <nav className="row">
