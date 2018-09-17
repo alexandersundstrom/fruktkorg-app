@@ -12,7 +12,7 @@ public class Fruktkorg {
 
     private List<Frukt> fruktList = new ArrayList<>();
 
-    private Instant lastChanged;
+    private String lastChanged;
 
     public Fruktkorg() {
     }
@@ -45,11 +45,11 @@ public class Fruktkorg {
         this.name = name;
     }
 
-    public Instant getLastChanged() {
+    public String getLastChanged() {
         return lastChanged;
     }
 
-    public void setLastChanged(Instant lastChanged) {
+    public void setLastChanged(String lastChanged) {
         this.lastChanged = lastChanged;
     }
 
