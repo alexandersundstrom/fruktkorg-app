@@ -45,6 +45,12 @@ const handleSearch = tableContainerId => {
 export class SearchFruktPage {
   constructor() {
     this.tableContainerId = null;
+    this.columns = [
+      { name: 'Namn', key: 'name' },
+      { name: 'Antal frukter', key: 'fruktAmount' },
+      { name: 'Senast ändrad', key: 'lastChanged' }
+    ];
+    this.rows = [];
   }
 
   render() {
@@ -53,7 +59,7 @@ export class SearchFruktPage {
     return (
       <Fragment>
         <input type="text" onKeyUp={handleSearch(this.tableContainerId)} />
-        <div id={this.tableContainerId} />
+        <Table columns={this.columns} rows={this.rows} />
       </Fragment>
     );
   }
