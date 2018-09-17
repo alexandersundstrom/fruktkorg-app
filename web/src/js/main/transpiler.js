@@ -8,6 +8,7 @@ const dom = (tag, attrs, ...children) => {
       const tagObject = new tag();
       if (tagObject.render && typeof tagObject.render === 'function') {
         tagObject.children = children;
+        tagObject.params = attrs;
         return tagObject.render();
       }
     }
