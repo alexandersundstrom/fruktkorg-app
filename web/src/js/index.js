@@ -1,4 +1,14 @@
-import { MainPage } from './main/mainPage.jsx';
+import {MainPage} from './main/mainPage.jsx';
 
 // Entry point for the application
-document.getElementById('app').appendChild(MainPage());
+$.ajax({
+  url: 'http://localhost:8090/loggedInPerson',
+  success: function (result) {
+    document.getElementById('app').appendChild(MainPage());
+  },
+  error: function (error) {
+
+  }
+
+});
+
