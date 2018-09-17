@@ -1,5 +1,5 @@
-.laddar_bakgrund,
-.laddar_text {
+.laddar-bakgrund,
+.laddar-text {
   height: 100%;
   left: 0;
   margin: 0;
@@ -9,13 +9,13 @@
   width: 100%;
 }
 
-.laddar_bakgrund {
+.laddar-bakgrund {
   background-color: black;
   opacity: 0.5;
   z-index: 2000;
 }
 
-.laddar_text {
+.laddar-text {
   align-items: center;
   color: white;
   display: flex;

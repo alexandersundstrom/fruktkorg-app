@@ -1,4 +1,4 @@
-@import 'themes/themes';
+@import '../../../sass/themes/themes';
 
 .menu {
   @include themify($themes) {

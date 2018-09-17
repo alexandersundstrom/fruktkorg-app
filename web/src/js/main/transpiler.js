@@ -4,6 +4,14 @@
 const dom = (tag, attrs, ...children) => {
   // Custom Components will be functions
   if (typeof tag === 'function') {
+    if (tag instanceof Object) {
+      const tagObject = new tag();
+      if (tagObject.render && typeof tagObject.render === 'function') {
+        tagObject.children = children;
+        return tagObject.render();
+      }
+    }
+
     const result = tag();
     return result === 'FRAGMENT' ? children : result;
   }
@@ -31,12 +39,25 @@ const dom = (tag, attrs, ...children) => {
     // Merge element with attributes
     Object.assign(element, attrs);
 
-    if (
-      attrs instanceof Object &&
-      attrs.ref &&
-      typeof attrs.ref === 'function'
-    ) {
-      attrs.ref(element);
+    if (attrs instanceof Object) {
+      if (attrs.ref && typeof attrs.ref === 'function') {
+        attrs.ref(element);
+      }
+
+      // Looks for attributes starting with ON and adds them as events on the element
+      for (let property in attrs) {
+        if (attrs.hasOwnProperty(property)) {
+          if (
+            property.startsWith('on') &&
+            typeof attrs[property] === 'function'
+          ) {
+            element.addEventListener(
+              property.substring(2, property.length).toLocaleLowerCase(),
+              attrs[property]
+            );
+          }
+        }
+      }
     }
 
     return element;
