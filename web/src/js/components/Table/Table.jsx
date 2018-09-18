@@ -13,7 +13,7 @@ export class Table extends Component {
     }
 
     return (
-      <div>
+      <Fragment>
         <table>
           {columns.map(column => {
             return (
@@ -34,7 +34,7 @@ export class Table extends Component {
               })
             : null}
         </table>
-      </div>
+      </Fragment>
     );
   }
 }

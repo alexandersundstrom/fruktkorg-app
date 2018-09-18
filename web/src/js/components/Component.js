@@ -1,3 +1,5 @@
+import { flattenArray } from '../util/Util';
+
 export class Component {
   constructor() {
     this._self = null;
@@ -31,7 +33,7 @@ export class Component {
     if (!this._self) {
       return;
     }
-    
+
     const parent = this._self.parentElement || this._self[0].parentElement;
     if (!parent) {
       return;
@@ -41,6 +43,7 @@ export class Component {
     this._self = this.render();
 
     if (oldSelf.constructor === Array) {
+      oldSelf = flattenArray(oldSelf);
       for (let i = 1; i < oldSelf.length; ++i) {
         parent.removeChild(oldSelf[i]);
       }
@@ -49,7 +52,7 @@ export class Component {
 
     if (this._self.constructor === Array) {
       let sibling;
-      for (let node of this._self) {
+      for (let node of flattenArray(this._self)) {
         if (oldSelf) {
           parent.replaceChild(node, oldSelf);
           oldSelf = null;
@@ -66,7 +69,7 @@ export class Component {
   setState(newState) {
     for (let property in newState) {
       if (newState.hasOwnProperty(property)) {
-        if(typeof this.state[property] !== 'undefined') {
+        if (typeof this.state[property] !== 'undefined') {
           this.state[`_${property}`] = newState[property];
         } else {
           this.state[`_${property}`] = newState[property];

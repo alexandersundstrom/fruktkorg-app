@@ -1,6 +1,7 @@
 import dom, { Fragment } from '../../main/transpiler';
+import { Component } from '../../components/Component';
+
 import { Table } from '../../components/Table/Table.jsx';
-import { Component } from '../../components/Component'
 
 const ENTER_KEY = 13;
 
@@ -47,7 +48,11 @@ export class SearchFruktPage extends Component {
 
     return (
       <Fragment>
-        <input value={search} type="text" onKeyUp={(event) => this.handleSearch(event)} />
+        <input
+          value={search}
+          type="text"
+          onKeyUp={event => this.handleSearch(event)}
+        />
         <Table columns={columns} rows={rows} />
       </Fragment>
     );

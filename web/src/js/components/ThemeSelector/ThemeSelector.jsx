@@ -1,12 +1,12 @@
 import dom from '../../main/transpiler';
-import { glassOn } from '../Glass/Glass.jsx';
+import { Component } from '../Component';
 
 const onChange = event => {
   $('#root').removeClass();
   $('#root').addClass(event.target.value);
 };
 
-export class ThemeSelector {
+export class ThemeSelector extends Component {
   render() {
     return (
       <select onChange={onChange}>

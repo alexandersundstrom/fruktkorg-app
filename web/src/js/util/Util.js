@@ -19,3 +19,19 @@ export const generateGuid = () => {
     s4()
   );
 };
+
+export const flattenArray = array => {
+  return _flattenArray(array, []);
+};
+
+const _flattenArray = (array, result) => {
+  for (let item of array) {
+    if (item.constructor === Array) {
+      result = _flattenArray(item, result);
+    } else {
+      result.push(item);
+    }
+  }
+
+  return result;
+};

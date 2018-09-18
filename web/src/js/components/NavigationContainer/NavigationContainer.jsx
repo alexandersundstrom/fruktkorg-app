@@ -1,7 +1,7 @@
-import dom from '../../main/transpiler'
-import { Component } from '../Component'
+import dom from '../../main/transpiler';
+import { Component } from '../Component';
 
-import { SearchFruktPage } from '../../page/SearchFruktPage/SearchFruktPage.jsx'
+import { SearchFruktPage } from '../../page/SearchFruktPage/SearchFruktPage.jsx';
 
 export const ACTIVITIES = [
   {
@@ -29,29 +29,29 @@ const getPageByPath = path => {
 };
 
 export class NavigationContainer extends Component {
-	constructor() {
-		super();
-		this.setState({
-			hash: window.location.hash
-		});
+  constructor() {
+    super();
+    this.setState({
+      hash: window.location.hash
+    });
 
-		window.addEventListener('hashchange', () => {
-			this.setState({
-				hash: window.location.hash
-			})
-		});
-	}
+    window.addEventListener('hashchange', () => {
+      this.setState({
+        hash: window.location.hash
+      });
+    });
+  }
 
-	render() {
-		const { hash } = this.state;
+  render() {
+    const { hash } = this.state;
 
-		if(!hash) {
-			return <div/>;
-		}
+    if (!hash) {
+      return <div />;
+    }
 
-		const Page = getPageByPath(hash);
-		if(Page) {
-			return <Page />
-		}
-	}
+    const Page = getPageByPath(hash);
+    if (Page) {
+      return <Page />;
+    }
+  }
 }

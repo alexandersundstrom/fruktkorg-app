@@ -1,5 +1,5 @@
 import dom from '../../main/transpiler';
-import { Component } from '../../components/Component'
+import { Component } from '../../components/Component';
 import './PageContainer.scss';
 
 import { NavigationContainer } from '../NavigationContainer/NavigationContainer.jsx';

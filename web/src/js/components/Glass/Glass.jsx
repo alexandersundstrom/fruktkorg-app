@@ -1,4 +1,5 @@
 import dom, { Fragment } from '../../main/transpiler';
+import { Component } from '../Component';
 import './Glass.scss';
 
 let concurrentGlassOnCount = 0;
@@ -27,7 +28,7 @@ export const glassOff = () => {
   }
 };
 
-export class Glass {
+export class Glass extends Component {
   render() {
     return (
       <Fragment>
