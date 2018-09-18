@@ -4,8 +4,6 @@ import { ACTIVITIES } from '../../util/Navigation';
 
 import './Navbar.scss';
 
-import { ThemeSelector } from '../ThemeSelector/ThemeSelector.jsx';
-
 const getActivities = permissions => {
   const permittedActivities = [];
 
