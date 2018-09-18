@@ -1,6 +1,7 @@
 import { flattenArray } from '../util/Util';
 
 export class Component {
+  // Creates default versions of always existing variables
   constructor() {
     this._self = null;
     this.props = {};
@@ -8,6 +9,7 @@ export class Component {
     this.children = null;
   }
 
+  // Inits children and props, run before render
   _init(children, props) {
     this.children = children;
     this.props = props || {};
@@ -29,11 +31,13 @@ export class Component {
     }
   }
 
+  // Rerenders the component if the state/props has changed
   _reRender() {
     if (!this._self) {
       return;
     }
 
+    // Finds the current parent element
     const parent = this._self.parentElement || this._self[0].parentElement;
     if (!parent) {
       return;
@@ -42,6 +46,7 @@ export class Component {
     let oldSelf = this._self;
     this._self = this.render();
 
+    // Removes all but one element from the old component
     if (oldSelf.constructor === Array) {
       oldSelf = flattenArray(oldSelf);
       for (let i = 1; i < oldSelf.length; ++i) {
@@ -50,6 +55,7 @@ export class Component {
       oldSelf = oldSelf[0];
     }
 
+    // Replaces whats left of the old component with the new component
     if (this._self.constructor === Array) {
       let sibling;
       for (let node of flattenArray(this._self)) {
@@ -66,6 +72,7 @@ export class Component {
     }
   }
 
+  // Sets the current state, also triggers a rerender
   setState(newState) {
     for (let property in newState) {
       if (newState.hasOwnProperty(property)) {
