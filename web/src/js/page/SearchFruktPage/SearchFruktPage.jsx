@@ -23,7 +23,9 @@ export class SearchFruktPage extends Component {
         success: result => {
           const rows = result.map(fruktkorg => ({
             name: fruktkorg.name,
-            fruktAmount: fruktkorg.fruktList.length,
+            fruktAmount: fruktkorg.fruktList.reduce((amount, frukt) => {
+              return amount + frukt.amount;
+            }, 0),
             lastChanged: fruktkorg.lastChanged
           }));
           this.setState({
