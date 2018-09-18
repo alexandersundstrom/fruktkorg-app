@@ -38,7 +38,10 @@ export class Component {
     }
 
     // Finds the current parent element
-    const parent = this._self.parentElement || this._self[0].parentElement;
+    const parent =
+      this._self.constructor === Array
+        ? this._self[0].parentElement
+        : this._self.parentElement;
     if (!parent) {
       return;
     }
@@ -68,7 +71,7 @@ export class Component {
         }
       }
     } else {
-      parent.replaceChild(node, oldSelf);
+      parent.replaceChild(this._self, oldSelf);
     }
   }
 

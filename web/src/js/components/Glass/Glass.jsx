@@ -31,7 +31,7 @@ export const glassOff = () => {
 export class Glass extends Component {
   render() {
     return (
-      <Fragment>
+      <div>
         <div
           id="laddar_bakgrund"
           className="laddar-bakgrund"
@@ -44,7 +44,7 @@ export class Glass extends Component {
         >
           Laddar...
         </div>
-      </Fragment>
+      </div>
     );
   }
 }
