@@ -1,14 +1,25 @@
 // This is REQUIRED for the build jsx in the build step!
 // DO NOT EDIT unless you know what you are doing.
 
+import { Component } from '../components/Component';
+
 const dom = (tag, attrs, ...children) => {
   // Custom Components will be functions
   if (typeof tag === 'function') {
     if (tag instanceof Object) {
       const tagObject = new tag();
+      if (tag.prototype instanceof Component) {
+        tagObject._init(children, attrs);
+
+        const self = tagObject.render();
+        if (self) {
+          tagObject._self = self;
+        }
+        return self;
+      }
       if (tagObject.render && typeof tagObject.render === 'function') {
         tagObject.children = children;
-        tagObject.params = attrs;
+        tagObject.props = attrs;
         return tagObject.render();
       }
     }
@@ -24,7 +35,9 @@ const dom = (tag, attrs, ...children) => {
 
     // one or multiple will be evaluated to append as string or HTMLElement
     children.forEach(function handleAppends(child) {
-      if (child instanceof HTMLElement) {
+      if (child === null) {
+        return;
+      } else if (child instanceof HTMLElement) {
         fragments.appendChild(child);
       } else if (typeof child === 'string' || typeof child === 'number') {
         const textnode = document.createTextNode(child);

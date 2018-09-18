@@ -1,5 +1,5 @@
 import dom from '../../main/transpiler';
-
+import { Component } from '../Component';
 import { ACTIVITIES } from '../../util/Navigation';
 
 import './Navbar.scss';
@@ -20,9 +20,9 @@ const getActivities = permissions => {
   return permittedActivities;
 };
 
-export class Navbar {
+export class Navbar extends Component {
   render() {
-    const { permissions } = this.params;
+    const { permissions } = this.props;
     return (
       <div className="menu" id="menu_bar">
         <header className="fluid-grid grid-column-12">

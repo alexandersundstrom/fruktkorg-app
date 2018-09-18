@@ -1,59 +1,59 @@
 import dom, { Fragment } from '../../main/transpiler';
+import { Component } from '../../components/Component';
+
 import { Table } from '../../components/Table/Table.jsx';
-import { generateGuid } from '../../util/Util';
 
 const ENTER_KEY = 13;
 
-const handleResult = (tableContainerId, result) => {
-  const tableContainer = $(`#${tableContainerId}`);
+export class SearchFruktPage extends Component {
+  constructor() {
+    super();
+    this.setState({
+      columns: [],
+      rows: [],
+      search: ''
+    });
+  }
 
-  const rows = result.map(fruktkorg => ({
-    name: fruktkorg.name,
-    fruktAmount: fruktkorg.fruktList.length,
-    lastChanged: fruktkorg.lastChanged
-  }));
-
-  tableContainer.html(
-    <Table
-      columns={[
-        { name: 'Namn', key: 'name' },
-        { name: 'Antal frukter', key: 'fruktAmount' },
-        { name: 'Senast ändrad', key: 'lastChanged' }
-      ]}
-      rows={rows}
-    />
-  );
-};
-
-const handleSearch = tableContainerId => {
-  return event => {
+  handleSearch(event) {
     event.preventDefault();
     if (event.keyCode === ENTER_KEY) {
       $.ajax({
         url: `http://localhost:8090/fruktkorg/frukt/${event.target.value}`,
         success: result => {
-          handleResult(tableContainerId, result);
+          const rows = result.map(fruktkorg => ({
+            name: fruktkorg.name,
+            fruktAmount: fruktkorg.fruktList.length,
+            lastChanged: fruktkorg.lastChanged
+          }));
+          this.setState({
+            columns: [
+              { name: 'Namn', key: 'name' },
+              { name: 'Antal frukter', key: 'fruktAmount' },
+              { name: 'Senast ändrad', key: 'lastChanged' }
+            ],
+            rows,
+            search: event.target.value
+          });
         },
         error: error => {
           console.error(error);
         }
       });
     }
-  };
-};
-
-export class SearchFruktPage {
-  constructor() {
-    this.tableContainerId = null;
   }
 
   render() {
-    this.tableContainerId = generateGuid();
+    const { columns, rows, search } = this.state;
 
     return (
       <Fragment>
-        <input type="text" onKeyUp={handleSearch(this.tableContainerId)} />
-        <div id={this.tableContainerId} />
+        <input
+          value={search}
+          type="text"
+          onKeyUp={event => this.handleSearch(event)}
+        />
+        <Table columns={columns} rows={rows} />
       </Fragment>
     );
   }
