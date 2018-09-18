@@ -2,8 +2,7 @@ import dom from '../../main/transpiler';
 import { Component } from '../../components/Component';
 import './PageContainer.scss';
 
-import { NavigationContainer } from '../NavigationContainer/NavigationContainer.jsx';
-import {WelcomePage} from "../../page/WelcomePage/WelcomePage.jsx";
+import {NavigationContainer} from '../NavigationContainer/NavigationContainer.jsx';
 
 export class PageContainer extends Component {
   render() {
@@ -16,7 +15,6 @@ export class PageContainer extends Component {
               <div className="row padded">
                 <div id="content-inner">
                   <NavigationContainer />
-                  {/*<WelcomePage/>*/}
                 </div>
               </div>
             </div>

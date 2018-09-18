@@ -2,6 +2,7 @@ import dom from '../../main/transpiler';
 import { Component } from '../Component';
 
 import { SearchFruktPage } from '../../page/SearchFruktPage/SearchFruktPage.jsx';
+import {WelcomePage} from "../../page/WelcomePage/WelcomePage.jsx";
 
 export const ACTIVITIES = [
   {
@@ -46,7 +47,7 @@ export class NavigationContainer extends Component {
     const { hash } = this.state;
 
     if (!hash) {
-      return <div />;
+      return <WelcomePage />;
     }
 
     const Page = getPageByPath(hash);
