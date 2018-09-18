@@ -1,5 +1,5 @@
-import dom from '../../main/transpiler';
-import { Component } from '../Component';
+import dom, { Fragment } from '../../main/transpiler';
+import {Component} from '../Component';
 
 const onChange = event => {
   $('#root').removeClass();
@@ -9,10 +9,13 @@ const onChange = event => {
 export class ThemeSelector extends Component {
   render() {
     return (
-      <select onChange={onChange}>
-        <option value="theme-standard">Standard</option>
-        <option value="theme-high-contrast">High Contrast</option>
-      </select>
+      <Fragment>
+        <span className="brodtext">Tema </span>
+        <select onChange={onChange}>
+          <option value="theme-standard">Standard</option>
+          <option value="theme-high-contrast">High Contrast</option>
+        </select>
+      </Fragment>
     );
   }
 }

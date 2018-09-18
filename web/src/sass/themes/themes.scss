@@ -10,7 +10,9 @@ $themes: (
     'a-focused-link-bg-color': #68c0ea,
     'a-focused-link-color': #ffffff,
     'darkgray': #4f4f4f,
-    'font-size': 1em
+    'font-size': 1em,
+    'brodtext-color': #4f4f4f,
+    'fontsize-percent': 90%
   ),
   high-contrast: (
     'primary-bg-color': white,
@@ -23,7 +25,9 @@ $themes: (
     'a-focused-link-bg-color': black,
     'a-focused-link-color': white,
     'darkgray': #4f4f4f,
-    'font-size': 1.1em
+    'font-size': 1.1em,
+    'brodtext-color': black,
+    'fontsize-percent': 100%
   )
 );
 

@@ -12,8 +12,8 @@ import java.util.List;
 @Service
 public class PersonService {
     private static List<Person> persons = Arrays.asList(
-            new Person("198803011234", "John Doe", Arrays.asList(Permission.SEARCH)),
-            new Person("199008011234", "Jane Doe", new ArrayList<>())
+            new Person("19880301-1234", "John Doe", Arrays.asList(Permission.SEARCH)),
+            new Person("19900801-1234", "Jane Doe", new ArrayList<>())
     );
 
     public Person getPerson(String personNumber) throws PersonMissingException {

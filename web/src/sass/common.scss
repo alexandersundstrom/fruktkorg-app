@@ -96,3 +96,14 @@ a:hover {
   }
 }
 
+.brodtext {
+  @include themify($themes) {
+    color: themed('brodtext-color');
+  font-size: themed('fontsize-percent');
+  }
+  font-family: arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 150%;
+}
+
