@@ -3,7 +3,6 @@
 body {
   @include themify($themes) {
     background-color: themed('primary-bg-color');
-    font-size: themed('font-size');
   }
   color: black;
   font-family: arial, sans-serif;
@@ -105,5 +104,31 @@ a:hover {
   font-style: normal;
   font-weight: normal;
   line-height: 150%;
+}
+
+h2 {
+  @include themify($themes) {
+    color: themed('brodtext-color');
+  }
+  font-family: arial, sans-serif;
+  font-size: 220%;
+  font-style: normal;
+  font-weight: normal;
+  line-height: normal;
+  margin-bottom: 0.0em;
+  margin-top: 0.0em;
+}
+
+h3 {
+  @include themify($themes) {
+    color: themed('brodtext-color');
+  }
+  font-family: arial, sans-serif;
+  font-size: 110%;
+  font-style: normal;
+  font-weight: normal;
+  line-height: normal;
+  margin-bottom: 1.0em;
+  margin-top: 0.0em;
 }
 

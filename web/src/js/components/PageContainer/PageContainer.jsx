@@ -1,6 +1,7 @@
 import dom from '../../main/transpiler';
 import { Component } from '../../components/Component';
 import './PageContainer.scss';
+import { ThemeSelector } from "../ThemeSelector/ThemeSelector.jsx";
 
 import { NavigationContainer } from '../NavigationContainer/NavigationContainer.jsx';
 
@@ -15,6 +16,9 @@ export class PageContainer extends Component {
               <div className="row padded">
                 <div id="content-inner">
                   <NavigationContainer />
+                  <h2>Välkommen</h2>
+                  <h3>Här kan du välja att göra följande</h3>
+                  <ThemeSelector/>
                 </div>
               </div>
             </div>
