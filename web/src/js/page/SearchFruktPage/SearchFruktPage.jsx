@@ -1,4 +1,4 @@
-import dom, { Fragment } from '../../main/transpiler';
+import dom, from '../../main/transpiler';
 import { Component } from '../../components/Component';
 import { glassOn, glassOff } from '../../components/Glass/Glass.jsx';
 
@@ -53,6 +53,9 @@ export class SearchFruktPage extends Component {
 
     return (
       <div>
+        <h2>Välkommen</h2>
+        <h3>Här kan du få reda på vilka fruktkorgar den frukt du letar efter finns i.</h3>
+        <span>Namn på frukt </span>
         <input
           value={search}
           type="text"
