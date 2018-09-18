@@ -1,7 +1,8 @@
-import dom, { Fragment } from '../../main/transpiler';
-import { Component } from '../../components/Component';
+import dom, {Fragment} from '../../main/transpiler';
+import {Component} from '../../components/Component';
+import {glassOn, glassOff} from "../../components/Glass/Glass.jsx";
 
-import { Table } from '../../components/Table/Table.jsx';
+import {Table} from '../../components/Table/Table.jsx';
 
 const ENTER_KEY = 13;
 
@@ -18,9 +19,11 @@ export class SearchFruktPage extends Component {
   handleSearch(event) {
     event.preventDefault();
     if (event.keyCode === ENTER_KEY) {
+      glassOn("Laddar...");
       $.ajax({
         url: `http://localhost:8090/fruktkorg/frukt/${event.target.value}`,
         success: result => {
+          glassOff();
           const rows = result.map(fruktkorg => ({
             name: fruktkorg.name,
             fruktAmount: fruktkorg.fruktList.reduce((amount, frukt) => {
@@ -30,9 +33,9 @@ export class SearchFruktPage extends Component {
           }));
           this.setState({
             columns: [
-              { name: 'Namn', key: 'name' },
-              { name: 'Antal frukter', key: 'fruktAmount' },
-              { name: 'Senast ändrad', key: 'lastChanged' }
+              {name: 'Namn', key: 'name'},
+              {name: 'Antal frukter', key: 'fruktAmount'},
+              {name: 'Senast ändrad', key: 'lastChanged'}
             ],
             rows,
             search: event.target.value
@@ -46,7 +49,7 @@ export class SearchFruktPage extends Component {
   }
 
   render() {
-    const { columns, rows, search } = this.state;
+    const {columns, rows, search} = this.state;
 
     return (
       <Fragment>
@@ -55,7 +58,7 @@ export class SearchFruktPage extends Component {
           type="text"
           onKeyUp={event => this.handleSearch(event)}
         />
-        <Table columns={columns} rows={rows} />
+        <Table columns={columns} rows={rows}/>
       </Fragment>
     );
   }
