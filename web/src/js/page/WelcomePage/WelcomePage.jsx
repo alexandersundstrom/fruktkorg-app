@@ -1,4 +1,4 @@
-import dom, from '../../main/transpiler';
+import dom from '../../main/transpiler';
 import { Component } from '../../components/Component';
 import { ThemeSelector } from '../../components/ThemeSelector/ThemeSelector.jsx';
 
