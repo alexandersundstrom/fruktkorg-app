@@ -5,3 +5,12 @@
 .table-row:nth-child(odd) {
   background: #fff;
 }
+
+.full-width-table {
+  width: 100%;
+  border-spacing: 0;
+}
+
+.full-width-table tr {
+  height: 30px;
+}

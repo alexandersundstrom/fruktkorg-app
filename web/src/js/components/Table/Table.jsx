@@ -1,7 +1,6 @@
-import dom, { Fragment } from '../../main/transpiler';
+import dom from '../../main/transpiler';
 
 import { Component } from '../Component';
-
 import './Table.scss';
 
 export class Table extends Component {
@@ -14,7 +13,7 @@ export class Table extends Component {
 
     return (
       <div>
-        <table>
+        <table className="full-width-table">
           {columns.map(column => {
             return (
               <th>
