@@ -29,8 +29,8 @@ const getActivity = path => {
 };
 
 export class Navbar extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.setState({
       activeActivity: getActivity(window.location.hash)

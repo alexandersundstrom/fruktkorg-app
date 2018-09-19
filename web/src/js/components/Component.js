@@ -3,18 +3,17 @@ import { virtualDOM } from '../main/transpiler';
 
 export class Component {
   // Creates default versions of always existing variables
-  constructor() {
+  constructor(props) {
     this._id = generateGuid();
     this._self = null;
-    this.props = {};
+    this.props = props || {};
     this.state = {};
     this.children = null;
   }
 
   // Inits children and props, run before render
-  _init(children, props) {
+  _init(children) {
     this.children = children;
-    this.props = props || {};
 
     for (let property in this.props) {
       if (this.props.hasOwnProperty(property)) {

@@ -30,8 +30,8 @@ const getPageByPath = path => {
 };
 
 export class NavigationContainer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.setState({
       hash: window.location.hash
     });

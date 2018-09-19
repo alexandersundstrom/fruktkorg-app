@@ -10,17 +10,19 @@ const dom = (tag, attrs, ...children) => {
   // Custom Components will be functions
   if (typeof tag === 'function') {
     if (tag instanceof Object) {
-      const tagObject = new tag();
       if (tag.prototype instanceof Component) {
-        tagObject._init(children, attrs);
+        const component = new tag(attrs);
+        component._init(children);
 
-        const self = tagObject.render();
+        const self = component.render();
         if (self) {
-          tagObject._self = self;
+          component._self = self;
         }
-        virtualDOM.addComponent(tagObject);
+        virtualDOM.addComponent(component);
         return self;
       }
+
+      const tagObject = new tag();
       if (tagObject.render && typeof tagObject.render === 'function') {
         tagObject.children = children;
         tagObject.props = attrs;

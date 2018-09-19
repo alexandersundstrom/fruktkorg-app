@@ -20,7 +20,6 @@ export class VirtualDOM {
     );
 
     this.removeOrphans();
-    console.log(this.wrappers);
   }
 
   mount() {
