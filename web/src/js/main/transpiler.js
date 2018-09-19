@@ -2,6 +2,9 @@
 // DO NOT EDIT unless you know what you are doing.
 
 import { Component } from '../components/Component';
+import { VirtualDOM } from './VirtualDOM';
+
+export const virtualDOM = new VirtualDOM();
 
 const dom = (tag, attrs, ...children) => {
   // Custom Components will be functions
@@ -15,6 +18,7 @@ const dom = (tag, attrs, ...children) => {
         if (self) {
           tagObject._self = self;
         }
+        virtualDOM.addComponent(tagObject);
         return self;
       }
       if (tagObject.render && typeof tagObject.render === 'function') {

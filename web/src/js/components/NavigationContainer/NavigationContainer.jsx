@@ -2,7 +2,7 @@ import dom from '../../main/transpiler';
 import { Component } from '../Component';
 
 import { SearchFruktPage } from '../../page/SearchFruktPage/SearchFruktPage.jsx';
-import {WelcomePage} from "../../page/WelcomePage/WelcomePage.jsx";
+import { WelcomePage } from '../../page/WelcomePage/WelcomePage.jsx';
 
 export const ACTIVITIES = [
   {
@@ -47,12 +47,20 @@ export class NavigationContainer extends Component {
     const { hash } = this.state;
 
     if (!hash) {
-      return <WelcomePage />;
+      return (
+        <div>
+          <WelcomePage />
+        </div>
+      );
     }
 
     const Page = getPageByPath(hash);
     if (Page) {
-      return <Page />;
+      return (
+        <div>
+          <Page />
+        </div>
+      );
     }
   }
 }
