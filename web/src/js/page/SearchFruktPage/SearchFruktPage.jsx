@@ -14,6 +14,7 @@ export class SearchFruktPage extends Component {
       rows: [],
       search: ''
     });
+    this.inputElement = null;
   }
 
   handleSearch(event) {
@@ -48,6 +49,10 @@ export class SearchFruktPage extends Component {
     }
   }
 
+  componentDidMount() {
+    this.inputElement.focus();
+  }
+
   render() {
     const { columns, rows, search } = this.state;
 
@@ -59,6 +64,7 @@ export class SearchFruktPage extends Component {
         <input
           value={search}
           type="text"
+          ref={inputElement => (this.inputElement = inputElement)}
           onKeyUp={event => this.handleSearch(event)}
         />
         <Table columns={columns} rows={rows} />

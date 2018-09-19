@@ -1,8 +1,10 @@
-import { flattenArray } from '../util/Util';
+import { flattenArray, generateGuid } from '../util/Util';
+import { virtualDOM } from '../main/transpiler';
 
 export class Component {
   // Creates default versions of always existing variables
   constructor() {
+    this._id = generateGuid();
     this._self = null;
     this.props = {};
     this.state = {};
@@ -73,6 +75,10 @@ export class Component {
     } else {
       parent.replaceChild(this._self, oldSelf);
     }
+
+    virtualDOM.rerenderedComponent(this);
+    // Trigger mount
+    virtualDOM.mount();
   }
 
   // Sets the current state, also triggers a rerender
@@ -100,4 +106,6 @@ export class Component {
   render() {
     return null;
   }
+
+  componentDidMount() {}
 }
