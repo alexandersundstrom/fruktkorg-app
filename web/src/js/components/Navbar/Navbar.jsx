@@ -46,7 +46,6 @@ export class Navbar extends Component {
   render() {
     const { permissions } = this.props;
     const { activeActivity } = this.state;
-    console.log(activeActivity);
     return (
       <div className="menu" id="menu_bar">
         <header className="fluid-grid grid-column-12">
