@@ -1,31 +1,59 @@
 import dom from '../../main/transpiler';
 import {Component} from "../Component";
 import './PaginationTable.scss';
+import '../../../sass/common.scss'
 
 export class PaginationTable extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
+    const {pages} = this.props;
+
     this.setState({
       currentPage: 1,
       itemsPerPage: 10,
       sortAscending: true,
-      title: '',
-      pages: 1
+      pages: pages
     });
   }
 
   gotoPage(pageNumber) {
-    const {currentPage} = this.state;
-    if (pageNumber === currentPage || pageNumber < 1 || pageNumber > this.getLastPageNumber()) {
+    const {currentPage, pages} = this.state;
+    if (pageNumber === currentPage || pageNumber < 1 || pageNumber > pages) {
       return;
     }
 
     this.setState({
       currentPage: pageNumber
     });
+    this.refresh();
+  }
 
-    // refreshTable(); //Perhaps not needed
+  refresh() {
+    this.updateArrowButtons();
+    $('#pageInfo').html('');
+    //   pageInfo.setInnerText((((pageable.getCurrentPage() - 1) * pageable.getItemsPerPage()) + 1) + "-" + (Math.min(pageable.getCurrentPage() * pageable.getItemsPerPage(), pageable.getItemCount()) + " av " + pageable.getItemCount()));
+  }
+
+  updateArrowButtons() {
+    const {currentPage, pages} = this.state;
+    const firstPage = 1;
+    if (currentPage === firstPage) {
+      $('#firstPageButton').addClass('disabled');
+      $('#previousPageButton').addClass('disabled');
+    } else {
+      $('#firstPageButton').removeClass('disabled');
+      $('#previousPageButton').removeClass('disabled');
+    }
+
+    if (currentPage === pages) {
+      $('#lastPageButton').addClass('disabled');
+      $('#nextPageButton').addClass('disabled');
+    } else {
+      $('#lastPageButton').removeClass('disabled');
+      $('#nextPageButton').removeClass('disabled');
+    }
   }
 
   goToLastPage() {
@@ -55,14 +83,28 @@ export class PaginationTable extends Component {
     return this.state.pages
   };
 
-  render() {
-    const {title, pages} = this.props;
-    console.log(pages)
-    this.setState({
-      title: title,
-      pages: pages
-    });
+  // private void setRows(List<ClientReport> clientReports) {
+  //   ListDataProvider<ClientReport> dataProvider = new ListDataProvider<>();
+  //   dataProvider.addDataDisplay(reportTable);
+  //
+  //   List<ClientReport> list = dataProvider.getList();
+  //   list.addAll(clientReports);
+  //
+  //   reportTable.addStyleName(style.fruktTable());
+  //   reportTable.setVisibleRange(0, reportsPerPage);
+  // }
+  //
+  // private void refreshTable() {
+  //   if(clientReports == null) {
+  //     return;
+  //   }
+  //   setRows(clientReports.subList((currentPage - 1) * reportsPerPage, Math.min(clientReports.size(), currentPage * reportsPerPage)));
+  // }
+  //
+  // public void init(Pageable pageable) {
 
+
+  render() {
     return (
       <div className="pagination-container">
         <div className="flex-div">
@@ -75,8 +117,8 @@ export class PaginationTable extends Component {
             </div>
           </div>
           <div className="limit-div">
-            <strong id="title"/>
-            <div className="{app.dr_val} limit-container">
+            <strong className="brodtext" id="title">Antal per sida </strong>
+            <div className="margin-left limit-container">
               <select onChange={event => this.setItemsPerPage(event)} id="itemsPerPageSelector"
                       className="dropdown-select">
                 <option value="10">10</option>
@@ -92,11 +134,11 @@ export class PaginationTable extends Component {
               <a id="nextPageButton" onClick={() => this.goToNextPage()}>&gt;</a>
             </div>
             <div className="page">
-              <a id="lastPageButton" onClick={this.goToLastPage()}>&gt;&gt;</a>
+              <a id="lastPageButton" onClick={() => this.goToLastPage()}>&gt;&gt;</a>
             </div>
           </div>
         </div>
-        <div id="pageInfo" className="page-info"/>
+        <div id="pageInfo" className="page-info brodtext"/>
       </div>
     );
   }

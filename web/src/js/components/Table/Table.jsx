@@ -1,6 +1,7 @@
 import dom from '../../main/transpiler';
 
 import { Component } from '../Component';
+import { PaginationTable } from "../PaginationTable/PaginationTable.jsx";
 import './Table.scss';
 
 export class Table extends Component {
@@ -13,6 +14,7 @@ export class Table extends Component {
 
     return (
       <div>
+        <PaginationTable pages={10}/>
         <table className="full-width-table">
           {columns.map(column => {
             return (
