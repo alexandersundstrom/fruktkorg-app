@@ -18,9 +18,35 @@ const getActivities = permissions => {
   return permittedActivities;
 };
 
+const getActivity = path => {
+  for (let activity of ACTIVITIES) {
+    if (activity.path === path) {
+      return activity;
+    }
+  }
+
+  return null;
+};
+
 export class Navbar extends Component {
+  constructor() {
+    super();
+
+    this.setState({
+      activeActivity: getActivity(window.location.hash)
+    });
+
+    window.addEventListener('hashchange', () => {
+      this.setState({
+        activeActivity: getActivity(window.location.hash)
+      });
+    });
+  }
+
   render() {
     const { permissions } = this.props;
+    const { activeActivity } = this.state;
+    console.log(activeActivity);
     return (
       <div className="menu" id="menu_bar">
         <header className="fluid-grid grid-column-12">
@@ -31,7 +57,14 @@ export class Navbar extends Component {
                   <ul className="nav">
                     {getActivities(permissions).map(activity => {
                       return (
-                        <li id={activity.id}>
+                        <li
+                          id={activity.id}
+                          className={
+                            activeActivity && activeActivity.id === activity.id
+                              ? 'active'
+                              : ''
+                          }
+                        >
                           <a href={activity.path}>{activity.displayName}</a>
                         </li>
                       );
