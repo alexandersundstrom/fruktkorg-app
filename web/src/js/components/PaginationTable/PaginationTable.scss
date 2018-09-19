@@ -1,0 +1,31 @@
+.pagination-container {
+  margin: 20px 0;
+}
+
+.flex-div {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.page {
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+a.disabled {
+  color: lightgray !important;
+}
+
+a.disabled:hover {
+  cursor: not-allowed !important;
+}
+
+.limit-div {
+  display: flex;
+  align-items: center;
+}
+
+.page-info {
+  text-align: center;
+}
