@@ -2,7 +2,7 @@ import dom from '../../main/transpiler';
 import {Component} from '../../components/Component';
 import {glassOn, glassOff} from '../../components/Glass/Glass.jsx';
 
-import {Table} from '../../components/Table/Table.jsx';
+import {PaginationTable} from '../../components/PaginationTable/PaginationTable.jsx';
 
 const ENTER_KEY = 13;
 
@@ -70,7 +70,7 @@ export class SearchFruktPage extends Component {
           ref={inputElement => (this.inputElement = inputElement)}
           onKeyUp={event => this.handleSearch(event)}
         />
-        <Table columns={columns} rows={rows} limit={limit}/>
+        <PaginationTable columns={columns} rows={rows} limit={limit}/>
       </div>
     );
   }

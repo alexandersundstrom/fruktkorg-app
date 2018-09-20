@@ -2,9 +2,9 @@ import dom from '../../main/transpiler';
 
 import {Component} from '../Component';
 import {Pagination} from "../Pagination/Pagination.jsx";
-import './Table.scss';
+import './PaginationTable.scss';
 
-export class Table extends Component {
+export class PaginationTable extends Component {
 
   constructor(props) {
 
@@ -22,7 +22,6 @@ export class Table extends Component {
   }
 
   onChange(currentPage, limit) {
-    // console.log(currentPage);
     const {rows} = this.state;
     const displayedRows = rows.slice((currentPage - 1) * limit, Math.min(rows.length, currentPage * limit));
     this.setState({
