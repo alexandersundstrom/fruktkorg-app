@@ -13,7 +13,8 @@ export class SearchFruktPage extends Component {
       columns: [],
       rows: [],
       search: '',
-      itemsPerPage: 10
+      itemsPerPage: 10,
+      sortAscending: true
     });
     this.inputElement = null;
   }
@@ -38,11 +39,12 @@ export class SearchFruktPage extends Component {
             return a.name.localeCompare(b.name);
           };
 
-          const sortRows = isAscending => {
-            if (isAscending) {
-              rows.sort(nameComparator);
+          const sortRows = sortAscending => {
+            this.setState({ sortAscending: sortAscending });
+            if (sortAscending) {
+              this.setState({ rows: rows.sort(nameComparator) });
             } else {
-              rows.reverse(nameComparator);
+              this.setState({ rows: rows.reverse(nameComparator) });
             }
           };
 
@@ -73,7 +75,7 @@ export class SearchFruktPage extends Component {
   }
 
   render() {
-    const { columns, rows, search, itemsPerPage } = this.state;
+    const { columns, rows, search, itemsPerPage, sortAscending } = this.state;
 
     return (
       <div>
@@ -93,6 +95,7 @@ export class SearchFruktPage extends Component {
           columns={columns}
           rows={rows}
           itemsPerPage={itemsPerPage}
+          sortAscending={sortAscending}
         />
       </div>
     );

@@ -4,13 +4,13 @@ import { Component } from '../Component';
 import { Pagination } from '../Pagination/Pagination.jsx';
 import './PaginationTable.scss';
 import arrowDown from './arrow_down.png';
+import arrowUp from './arrow_up.png';
 
 export class PaginationTable extends Component {
   constructor(props) {
     super(props);
-    const { rows, columns, itemsPerPage } = this.props;
+    const { rows, columns, itemsPerPage, sortAscending } = this.props;
     const currentPage = 1;
-    const sortAscending = true;
     const displayedRows = this.getDisplayedRows(
       rows,
       currentPage,
@@ -76,13 +76,21 @@ export class PaginationTable extends Component {
               <th>
                 <tr>
                   {column.comparator ? (
-                    <a>
-                      <img className="arrow-image" src={arrowDown} />
+                    <a
+                      onClick={() => {
+                        this.setState({ sortAscending: !sortAscending });
+                        column.comparator(this.state.sortAscending);
+                      }}
+                    >
+                      <img
+                        className="arrow-image"
+                        src={sortAscending ? arrowDown : arrowUp}
+                      />
+                      <span>{column.name}</span>
                     </a>
                   ) : (
-                    ''
+                    column.name
                   )}
-                  {column.name}
                 </tr>
               </th>
             );
