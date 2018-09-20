@@ -9,8 +9,7 @@ import arrowUp from './arrow_up.png';
 export class PaginationTable extends Component {
   constructor(props) {
     super(props);
-    const { rows, columns, itemsPerPage, sortAscending } = this.props;
-    const currentPage = 1;
+    const { rows, columns, itemsPerPage, sortAscending, currentPage } = this.props;
     const displayedRows = this.getDisplayedRows(
       rows,
       currentPage,
@@ -88,8 +87,9 @@ export class PaginationTable extends Component {
     return column.comparator ? (
       <a
         onClick={() => {
+          const { sortAscending, currentPage} = this.state;
           this.setState({ sortAscending: !sortAscending });
-          column.comparator(this.state.sortAscending);
+          column.comparator(!sortAscending, currentPage);
         }}
       >
         <img
