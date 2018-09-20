@@ -53,8 +53,7 @@ export class PaginationTable extends Component {
       displayedRows,
       itemsPerPage,
       rows,
-      currentPage,
-      sortAscending
+      currentPage
     } = this.state;
 
     if (!columns) {
@@ -74,40 +73,51 @@ export class PaginationTable extends Component {
           {columns.map(column => {
             return (
               <th>
-                <tr>
-                  {column.comparator ? (
-                    <a
-                      onClick={() => {
-                        this.setState({ sortAscending: !sortAscending });
-                        column.comparator(this.state.sortAscending);
-                      }}
-                    >
-                      <img
-                        className="arrow-image"
-                        src={sortAscending ? arrowDown : arrowUp}
-                      />
-                      <span>{column.name}</span>
-                    </a>
-                  ) : (
-                    column.name
-                  )}
-                </tr>
+                <tr>{this.getHeaderContent(column)}</tr>
               </th>
             );
           })}
-          {displayedRows
-            ? displayedRows.map(row => {
-                return (
-                  <tr className="table-row">
-                    {columns.map(column => {
-                      return <td>{row[column.key]}</td>;
-                    })}
-                  </tr>
-                );
-              })
-            : null}
+          {this.getColumnsContent()}
         </table>
       </div>
     );
+  }
+
+  getHeaderContent(column) {
+    const { sortAscending } = this.state;
+    return column.comparator ? (
+      <a
+        onClick={() => {
+          this.setState({ sortAscending: !sortAscending });
+          column.comparator(this.state.sortAscending);
+        }}
+      >
+        <img
+          className="arrow-image"
+          src={sortAscending ? arrowDown : arrowUp}
+        />
+        <span>{column.name}</span>
+      </a>
+    ) : (
+      column.name
+    );
+  }
+
+  getColumnsContent() {
+    const {
+      columns,
+      displayedRows,
+    } = this.state;
+    return displayedRows
+      ? displayedRows.map(row => {
+        return (
+          <tr className="table-row">
+            {columns.map(column => {
+              return <td>{row[column.key]}</td>;
+            })}
+          </tr>
+        );
+      })
+      : null;
   }
 }
