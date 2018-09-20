@@ -6,54 +6,57 @@ import './PaginationTable.scss';
 import arrowDown from './arrow_down.png';
 import arrowUp from './arrow_up.png';
 
+const getDisplayedRows = (rows, currentPage, itemsPerPage) => {
+  const startindex = (currentPage - 1) * itemsPerPage;
+  const endIndex = Math.min(rows.length, currentPage * itemsPerPage);
+  return rows.slice(startindex, endIndex);
+};
+
 export class PaginationTable extends Component {
   constructor(props) {
     super(props);
-    const {
-      rows,
-      columns,
-      itemsPerPage,
-      sortAscending,
-      currentPage
-    } = this.props;
-    const displayedRows = this.getDisplayedRows(
-      rows,
-      currentPage,
-      itemsPerPage
-    );
+    const { rows, columns, itemsPerPage } = this.props;
+    const currentPage = 1;
 
     this.setState({
       itemsPerPage,
       currentPage,
-      displayedRows,
       rows,
       columns,
-      sortAscending: sortAscending
+      sortedBy: {
+        key: null,
+        ascending: false
+      }
     });
   }
 
-  getDisplayedRows(rows, currentPage, itemsPerPage) {
-    const startindex = (currentPage - 1) * itemsPerPage;
-    const endIndex = Math.min(rows.length, currentPage * itemsPerPage);
-    return rows.slice(startindex, endIndex);
-  }
-
   onChange(currentPage, itemsPerPage) {
-    const { rows } = this.state;
-    const displayedRows = this.getDisplayedRows(
-      rows,
-      currentPage,
-      itemsPerPage
-    );
     this.setState({
       itemsPerPage,
-      currentPage,
-      displayedRows
+      currentPage
+    });
+  }
+
+  sortRows(key, comparator) {
+    const { rows, sortedBy } = this.state;
+
+    const ascending = sortedBy.key === key ? !sortedBy.ascending : true;
+
+    const sortedRows = ascending
+      ? rows.sort((a, b) => comparator(a[key], b[key]))
+      : rows.reverse((a, b) => comparator(a[key], b[key]));
+
+    this.setState({
+      rows: sortedRows,
+      sortedBy: {
+        key,
+        ascending
+      }
     });
   }
 
   render() {
-    const { columns, itemsPerPage, rows, currentPage } = this.state;
+    const { columns, itemsPerPage, rows, currentPage, sortedBy } = this.state;
 
     if (!columns) {
       return null;
@@ -72,11 +75,32 @@ export class PaginationTable extends Component {
           {columns.map(column => {
             return (
               <th>
-                <tr>{this.getHeaderContent(column)}</tr>
+                <tr>
+                  {column.comparator ? (
+                    <a
+                      onClick={event => {
+                        event.preventDefault();
+                        this.sortRows(column.key, column.comparator);
+                      }}
+                    >
+                      <img
+                        className="arrow-image"
+                        src={
+                          sortedBy.key === column.key && sortedBy.ascending
+                            ? arrowUp
+                            : arrowDown
+                        }
+                      />
+                      <span>{column.name}</span>
+                    </a>
+                  ) : (
+                    column.name
+                  )}
+                </tr>
               </th>
             );
           })}
-          {this.getColumnsContent()}
+          {this.renderRows()}
         </table>
       </div>
     );
@@ -103,8 +127,9 @@ export class PaginationTable extends Component {
     );
   }
 
-  getColumnsContent() {
-    const { columns, displayedRows } = this.state;
+  renderRows() {
+    const { columns, rows, currentPage, itemsPerPage } = this.state;
+    const displayedRows = getDisplayedRows(rows, currentPage, itemsPerPage);
     return displayedRows
       ? displayedRows.map(row => {
           return (

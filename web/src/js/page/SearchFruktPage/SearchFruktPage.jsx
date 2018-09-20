@@ -13,9 +13,7 @@ export class SearchFruktPage extends Component {
       columns: [],
       rows: [],
       search: '',
-      itemsPerPage: 10,
-      sortAscending: true,
-      currentPage: 1
+      itemsPerPage: 10
     });
     this.inputElement = null;
   }
@@ -36,37 +34,18 @@ export class SearchFruktPage extends Component {
             lastChanged: fruktkorg.lastChanged
           }));
 
-          const nameComparator = (a, b) => {
-            return a.name.localeCompare(b.name);
-          };
-
-          const sortRows = (sortAscending, currentPage) => {
-            this.setState({ sortAscending: sortAscending });
-            if (sortAscending) {
-              this.setState({
-                rows: rows.sort(nameComparator),
-                currentPage: currentPage
-              });
-            } else {
-              this.setState({
-                rows: rows.reverse(nameComparator),
-                currentPage: currentPage
-              });
-            }
-          };
-
           this.setState({
             columns: [
               {
                 name: 'Namn',
                 key: 'name',
-                comparator: sortRows.bind(this),
+                comparator: (a, b) => a.localeCompare(b),
                 isIndex: true
               },
               { name: 'Antal frukter', key: 'fruktAmount' },
               { name: 'Senast ändrad', key: 'lastChanged' }
             ],
-            rows: rows.sort(nameComparator),
+            rows,
             search: event.target.value
           });
         },
@@ -82,14 +61,8 @@ export class SearchFruktPage extends Component {
   }
 
   render() {
-    const {
-      columns,
-      rows,
-      search,
-      itemsPerPage,
-      sortAscending,
-      currentPage
-    } = this.state;
+    const { columns, rows, search, itemsPerPage } = this.state;
+
     return (
       <div>
         <h2>Välkommen</h2>
@@ -108,8 +81,6 @@ export class SearchFruktPage extends Component {
           columns={columns}
           rows={rows}
           itemsPerPage={itemsPerPage}
-          sortAscending={sortAscending}
-          currentPage={currentPage}
         />
       </div>
     );
