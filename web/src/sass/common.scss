@@ -93,6 +93,7 @@ a:hover {
   @include themify($themes) {
     color: themed('focused-link');
   }
+  cursor: pointer;
 }
 
 .brodtext {
