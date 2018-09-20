@@ -3,6 +3,7 @@ import dom from '../../main/transpiler';
 import { Component } from '../Component';
 import { Pagination } from '../Pagination/Pagination.jsx';
 import './PaginationTable.scss';
+import arrowDown from './arrow_down.png';
 
 export class PaginationTable extends Component {
   constructor(props) {
@@ -76,7 +77,7 @@ export class PaginationTable extends Component {
                 <tr>
                   {column.comparator ? (
                     <a>
-                      <img className="arrow-image" src="arrow_down.png" />
+                      <img className="arrow-image" src={arrowDown} />
                     </a>
                   ) : (
                     ''
