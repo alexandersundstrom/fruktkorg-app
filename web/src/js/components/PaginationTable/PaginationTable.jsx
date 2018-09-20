@@ -9,7 +9,13 @@ import arrowUp from './arrow_up.png';
 export class PaginationTable extends Component {
   constructor(props) {
     super(props);
-    const { rows, columns, itemsPerPage, sortAscending, currentPage } = this.props;
+    const {
+      rows,
+      columns,
+      itemsPerPage,
+      sortAscending,
+      currentPage
+    } = this.props;
     const displayedRows = this.getDisplayedRows(
       rows,
       currentPage,
@@ -47,13 +53,7 @@ export class PaginationTable extends Component {
   }
 
   render() {
-    const {
-      columns,
-      displayedRows,
-      itemsPerPage,
-      rows,
-      currentPage
-    } = this.state;
+    const { columns, itemsPerPage, rows, currentPage } = this.state;
 
     if (!columns) {
       return null;
@@ -87,7 +87,7 @@ export class PaginationTable extends Component {
     return column.comparator ? (
       <a
         onClick={() => {
-          const { sortAscending, currentPage} = this.state;
+          const { sortAscending, currentPage } = this.state;
           this.setState({ sortAscending: !sortAscending });
           column.comparator(!sortAscending, currentPage);
         }}
@@ -104,20 +104,17 @@ export class PaginationTable extends Component {
   }
 
   getColumnsContent() {
-    const {
-      columns,
-      displayedRows,
-    } = this.state;
+    const { columns, displayedRows } = this.state;
     return displayedRows
       ? displayedRows.map(row => {
-        return (
-          <tr className="table-row">
-            {columns.map(column => {
-              return <td>{row[column.key]}</td>;
-            })}
-          </tr>
-        );
-      })
+          return (
+            <tr className="table-row">
+              {columns.map(column => {
+                return <td>{row[column.key]}</td>;
+              })}
+            </tr>
+          );
+        })
       : null;
   }
 }

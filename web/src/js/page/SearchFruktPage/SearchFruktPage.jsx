@@ -82,7 +82,14 @@ export class SearchFruktPage extends Component {
   }
 
   render() {
-    const { columns, rows, search, itemsPerPage, sortAscending, currentPage } = this.state;
+    const {
+      columns,
+      rows,
+      search,
+      itemsPerPage,
+      sortAscending,
+      currentPage
+    } = this.state;
     return (
       <div>
         <h2>Välkommen</h2>
