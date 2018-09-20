@@ -120,10 +120,12 @@ export class Pagination extends Component {
         <div className="flex-div">
           <div className="flex-div">
             <div className="page">
-              <a id="firstPageButton" onClick={() => this.goToFirstPage()} className={currentPage === firstPage ? 'disabled' : ''}>&lt;&lt;</a>
+              <a id="firstPageButton" onClick={() => this.goToFirstPage()}
+                 className={currentPage === firstPage ? 'disabled' : ''}>&lt;&lt;</a>
             </div>
             <div className="page">
-              <a id="previousPageButton" onClick={() => this.goToPreviousPage()} className={currentPage === firstPage ? 'disabled' : ''}>&lt;</a>
+              <a id="previousPageButton" onClick={() => this.goToPreviousPage()}
+                 className={currentPage === firstPage ? 'disabled' : ''}>&lt;</a>
             </div>
           </div>
           <div className="limit-div">
@@ -141,10 +143,12 @@ export class Pagination extends Component {
           </div>
           <div className="flex-div">
             <div className="page">
-              <a id="nextPageButton" className={currentPage === pages ? 'disabled' : ''} onClick={() => this.goToNextPage()}>&gt;</a>
+              <a id="nextPageButton" className={currentPage === pages ? 'disabled' : ''}
+                 onClick={() => this.goToNextPage()}>&gt;</a>
             </div>
             <div className="page">
-              <a id="lastPageButton" className={currentPage === pages ? 'disabled' : ''} onClick={() => this.goToLastPage()}>&gt;&gt;</a>
+              <a id="lastPageButton" className={currentPage === pages ? 'disabled' : ''}
+                 onClick={() => this.goToLastPage()}>&gt;&gt;</a>
             </div>
           </div>
         </div>

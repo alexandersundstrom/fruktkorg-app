@@ -23,7 +23,7 @@ export class Table extends Component {
 
   onChange(currentPage, limit) {
     // console.log(currentPage);
-    const { rows } = this.state;
+    const {rows} = this.state;
     const displayedRows = rows.slice((currentPage - 1) * limit, Math.min(rows.length, currentPage * limit));
     this.setState({
       limit: limit,
@@ -41,7 +41,8 @@ export class Table extends Component {
 
     return (
       <div>
-        <Pagination  currentPage={currentPage} limit={limit} onLimitChange={this.onChange.bind(this)} onPageChange={this.onChange.bind(this)} items={rows.length}/>
+        <Pagination currentPage={currentPage} limit={limit} onLimitChange={this.onChange.bind(this)}
+                    onPageChange={this.onChange.bind(this)} items={rows.length}/>
         <table className="full-width-table">
           {columns.map(column => {
             return (
@@ -52,14 +53,14 @@ export class Table extends Component {
           })}
           {displayedRows
             ? displayedRows.map(row => {
-                return (
-                  <tr className="table-row">
-                    {columns.map(column => {
-                      return <td>{row[column.key]}</td>;
-                    })}
-                  </tr>
-                );
-              })
+              return (
+                <tr className="table-row">
+                  {columns.map(column => {
+                    return <td>{row[column.key]}</td>;
+                  })}
+                </tr>
+              );
+            })
             : null}
         </table>
       </div>
