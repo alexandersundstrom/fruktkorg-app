@@ -8,7 +8,6 @@ $.ajax({
     const rootElement = document.getElementById('app');
     rootElement.appendChild(MainPage(result));
     virtualDOM.init(rootElement);
-    virtualDOM.mount();
   },
   error: function(error) {}
 });

@@ -76,8 +76,6 @@ export class Component {
     }
 
     virtualDOM.rerenderedComponent(this);
-    // Trigger mount
-    virtualDOM.mount();
   }
 
   // Sets the current state, also triggers a rerender
