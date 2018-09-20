@@ -9,24 +9,35 @@ export class PaginationTable extends Component {
     super(props);
     const { rows, columns, itemsPerPage } = this.props;
     const currentPage = 1;
-    const displayedRows = rows.slice(
-      (currentPage - 1) * itemsPerPage,
-      Math.min(rows.length, currentPage * itemsPerPage)
+    const sortAscending = true;
+    const displayedRows = this.getDisplayedRows(
+      rows,
+      currentPage,
+      itemsPerPage
     );
+
     this.setState({
       itemsPerPage,
       currentPage,
       displayedRows,
       rows,
-      columns
+      columns,
+      sortAscending: sortAscending
     });
+  }
+
+  getDisplayedRows(rows, currentPage, itemsPerPage) {
+    const startindex = (currentPage - 1) * itemsPerPage;
+    const endIndex = Math.min(rows.length, currentPage * itemsPerPage);
+    return rows.slice(startindex, endIndex);
   }
 
   onChange(currentPage, itemsPerPage) {
     const { rows } = this.state;
-    const displayedRows = rows.slice(
-      (currentPage - 1) * itemsPerPage,
-      Math.min(rows.length, currentPage * itemsPerPage)
+    const displayedRows = this.getDisplayedRows(
+      rows,
+      currentPage,
+      itemsPerPage
     );
     this.setState({
       itemsPerPage,
@@ -41,7 +52,8 @@ export class PaginationTable extends Component {
       displayedRows,
       itemsPerPage,
       rows,
-      currentPage
+      currentPage,
+      sortAscending
     } = this.state;
 
     if (!columns) {
@@ -61,7 +73,16 @@ export class PaginationTable extends Component {
           {columns.map(column => {
             return (
               <th>
-                <tr>{column.name}</tr>
+                <tr>
+                  {column.comparator ? (
+                    <a>
+                      <img className="arrow-image" src="arrow_down.png" />
+                    </a>
+                  ) : (
+                    ''
+                  )}
+                  {column.name}
+                </tr>
               </th>
             );
           })}

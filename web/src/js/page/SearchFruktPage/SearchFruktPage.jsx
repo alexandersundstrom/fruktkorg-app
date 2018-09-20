@@ -33,9 +33,27 @@ export class SearchFruktPage extends Component {
             }, 0),
             lastChanged: fruktkorg.lastChanged
           }));
+
+          const nameComparator = (a, b) => {
+            return a.name.localeCompare(b.name);
+          };
+
+          const sortRows = isAscending => {
+            if (isAscending) {
+              rows.sort(nameComparator);
+            } else {
+              rows.reverse(nameComparator);
+            }
+          };
+
           this.setState({
             columns: [
-              { name: 'Namn', key: 'name' },
+              {
+                name: 'Namn',
+                key: 'name',
+                comparator: sortRows.bind(this),
+                isIndex: true
+              },
               { name: 'Antal frukter', key: 'fruktAmount' },
               { name: 'Senast ändrad', key: 'lastChanged' }
             ],
