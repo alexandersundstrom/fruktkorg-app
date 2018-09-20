@@ -66,7 +66,7 @@ export class SearchFruktPage extends Component {
               { name: 'Antal frukter', key: 'fruktAmount' },
               { name: 'Senast ändrad', key: 'lastChanged' }
             ],
-            rows,
+            rows: rows.sort(nameComparator),
             search: event.target.value
           });
         },
