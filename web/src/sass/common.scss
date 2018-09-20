@@ -99,7 +99,7 @@ a:hover {
 .brodtext {
   @include themify($themes) {
     color: themed('brodtext-color');
-  font-size: themed('fontsize-percent');
+    font-size: themed('fontsize-percent');
   }
   font-family: arial, sans-serif;
   font-style: normal;
@@ -124,8 +124,8 @@ h2 {
   font-style: normal;
   font-weight: normal;
   line-height: normal;
-  margin-bottom: 0.0em;
-  margin-top: 0.0em;
+  margin-bottom: 0em;
+  margin-top: 0em;
 }
 
 h3 {
@@ -137,7 +137,6 @@ h3 {
   font-style: normal;
   font-weight: normal;
   line-height: normal;
-  margin-bottom: 1.0em;
-  margin-top: 0.0em;
+  margin-bottom: 1em;
+  margin-top: 0em;
 }
-

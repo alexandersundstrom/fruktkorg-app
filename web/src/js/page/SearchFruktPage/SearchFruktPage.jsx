@@ -1,8 +1,8 @@
 import dom from '../../main/transpiler';
-import {Component} from '../../components/Component';
-import {glassOn, glassOff} from '../../components/Glass/Glass.jsx';
+import { Component } from '../../components/Component';
+import { glassOn, glassOff } from '../../components/Glass/Glass.jsx';
 
-import {PaginationTable} from '../../components/PaginationTable/PaginationTable.jsx';
+import { PaginationTable } from '../../components/PaginationTable/PaginationTable.jsx';
 
 const ENTER_KEY = 13;
 
@@ -13,7 +13,7 @@ export class SearchFruktPage extends Component {
       columns: [],
       rows: [],
       search: '',
-      limit: 10
+      itemsPerPage: 10
     });
     this.inputElement = null;
   }
@@ -35,9 +35,9 @@ export class SearchFruktPage extends Component {
           }));
           this.setState({
             columns: [
-              {name: 'Namn', key: 'name'},
-              {name: 'Antal frukter', key: 'fruktAmount'},
-              {name: 'Senast ändrad', key: 'lastChanged'}
+              { name: 'Namn', key: 'name' },
+              { name: 'Antal frukter', key: 'fruktAmount' },
+              { name: 'Senast ändrad', key: 'lastChanged' }
             ],
             rows,
             search: event.target.value
@@ -55,13 +55,14 @@ export class SearchFruktPage extends Component {
   }
 
   render() {
-    const {columns, rows, search, limit} = this.state;
+    const { columns, rows, search, itemsPerPage } = this.state;
 
     return (
       <div>
         <h2>Välkommen</h2>
         <h3>
-          Här kan du få reda på vilka fruktkorgar den frukt du letar efter finns i.
+          Här kan du få reda på vilka fruktkorgar den frukt du letar efter finns
+          i.
         </h3>
         <span>Namn på frukt </span>
         <input
@@ -70,7 +71,11 @@ export class SearchFruktPage extends Component {
           ref={inputElement => (this.inputElement = inputElement)}
           onKeyUp={event => this.handleSearch(event)}
         />
-        <PaginationTable columns={columns} rows={rows} limit={limit}/>
+        <PaginationTable
+          columns={columns}
+          rows={rows}
+          itemsPerPage={itemsPerPage}
+        />
       </div>
     );
   }

@@ -1,5 +1,5 @@
 import dom from '../../main/transpiler';
-import {Component} from '../Component';
+import { Component } from '../Component';
 import './ThemeSelector.scss';
 
 const onChange = event => {

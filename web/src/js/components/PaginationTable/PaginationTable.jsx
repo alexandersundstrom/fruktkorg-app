@@ -1,38 +1,48 @@
 import dom from '../../main/transpiler';
 
-import {Component} from '../Component';
-import {Pagination} from "../Pagination/Pagination.jsx";
+import { Component } from '../Component';
+import { Pagination } from '../Pagination/Pagination.jsx';
 import './PaginationTable.scss';
 
 export class PaginationTable extends Component {
-
   constructor(props) {
-
     super(props);
-    const {rows, columns, limit} = this.props;
+    const { rows, columns, itemsPerPage } = this.props;
     const currentPage = 1;
-    const displayedRows = rows.slice((currentPage - 1) * limit, Math.min(rows.length, currentPage * limit));
+    const displayedRows = rows.slice(
+      (currentPage - 1) * itemsPerPage,
+      Math.min(rows.length, currentPage * itemsPerPage)
+    );
     this.setState({
-      limit: limit,
-      currentPage: currentPage,
-      displayedRows: displayedRows,
-      rows: rows,
-      columns: columns
+      itemsPerPage,
+      currentPage,
+      displayedRows,
+      rows,
+      columns
     });
   }
 
-  onChange(currentPage, limit) {
-    const {rows} = this.state;
-    const displayedRows = rows.slice((currentPage - 1) * limit, Math.min(rows.length, currentPage * limit));
+  onChange(currentPage, itemsPerPage) {
+    const { rows } = this.state;
+    const displayedRows = rows.slice(
+      (currentPage - 1) * itemsPerPage,
+      Math.min(rows.length, currentPage * itemsPerPage)
+    );
     this.setState({
-      limit: limit,
-      currentPage: currentPage,
-      displayedRows: displayedRows
+      itemsPerPage,
+      currentPage,
+      displayedRows
     });
   }
 
   render() {
-    const {columns, displayedRows, limit, rows, currentPage} = this.state;
+    const {
+      columns,
+      displayedRows,
+      itemsPerPage,
+      rows,
+      currentPage
+    } = this.state;
 
     if (!columns) {
       return null;
@@ -40,8 +50,13 @@ export class PaginationTable extends Component {
 
     return (
       <div>
-        <Pagination currentPage={currentPage} limit={limit} onLimitChange={this.onChange.bind(this)}
-                    onPageChange={this.onChange.bind(this)} items={rows.length}/>
+        <Pagination
+          currentPage={currentPage}
+          itemsPerPage={itemsPerPage}
+          onItemsPerPageChange={this.onChange.bind(this)}
+          onPageChange={this.onChange.bind(this)}
+          items={rows.length}
+        />
         <table className="full-width-table">
           {columns.map(column => {
             return (
@@ -52,14 +67,14 @@ export class PaginationTable extends Component {
           })}
           {displayedRows
             ? displayedRows.map(row => {
-              return (
-                <tr className="table-row">
-                  {columns.map(column => {
-                    return <td>{row[column.key]}</td>;
-                  })}
-                </tr>
-              );
-            })
+                return (
+                  <tr className="table-row">
+                    {columns.map(column => {
+                      return <td>{row[column.key]}</td>;
+                    })}
+                  </tr>
+                );
+              })
             : null}
         </table>
       </div>
