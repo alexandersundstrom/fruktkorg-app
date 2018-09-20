@@ -47,10 +47,15 @@ export class Pagination extends Component {
     }
   }
 
+  getCurrentItemsDescription() {
+    const {currentPage, items, limit} = this.state;
+    return `Visar ${Math.min(((currentPage - 1) * limit) + 1, items)}-${Math.min(currentPage * limit, items)} av ${items}`
+  }
+
   refresh() {
+
     this.updateArrowButtons();
-    $('#pageInfo').html('');
-    //   pageInfo.setInnerText((((pageable.getCurrentPage() - 1) * pageable.getlimit()) + 1) + "-" + (Math.min(pageable.getCurrentPage() * pageable.getlimit(), pageable.getItemCount()) + " av " + pageable.getItemCount()));
+    $('#pageInfo').html(this.getCurrentItemsDescription());
   }
 
   updateArrowButtons() {
@@ -112,7 +117,7 @@ export class Pagination extends Component {
   };
 
   render() {
-    const {limit, currentPage, pages} = this.state;
+    const {limit, currentPage, pages, items} = this.state;
     const firstPage = 1;
 
     return (
@@ -152,7 +157,9 @@ export class Pagination extends Component {
             </div>
           </div>
         </div>
-        <div id="pageInfo" className="page-info brodtext"/>
+        <div id="pageInfo" className="page-info brodtext">
+          {this.getCurrentItemsDescription()}
+        </div>
       </div>
     );
   }
