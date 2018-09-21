@@ -56,7 +56,7 @@ export class PaginationTable extends Component {
   }
 
   render() {
-    const { columns, itemsPerPage, rows, currentPage, sortedBy } = this.state;
+    const { columns, itemsPerPage, rows, currentPage } = this.state;
 
     if (!columns) {
       return null;
@@ -72,59 +72,43 @@ export class PaginationTable extends Component {
           items={rows.length}
         />
         <table className="full-width-table">
-          {columns.map(column => {
-            return (
-              <th>
-                <tr>
-                  {column.comparator ? (
-                    <a
-                      onClick={event => {
-                        event.preventDefault();
-                        this.sortRows(column.key, column.comparator);
-                      }}
-                    >
-                      <img
-                        className="arrow-image"
-                        src={
-                          sortedBy.key === column.key && sortedBy.ascending
-                            ? arrowUp
-                            : arrowDown
-                        }
-                      />
-                      <span>{column.name}</span>
-                    </a>
-                  ) : (
-                    column.name
-                  )}
-                </tr>
-              </th>
-            );
-          })}
+          {this.renderHeaders(columns)}
           {this.renderRows()}
         </table>
       </div>
     );
   }
 
-  getHeaderContent(column) {
-    const { sortAscending } = this.state;
-    return column.comparator ? (
-      <a
-        onClick={() => {
-          const { sortAscending, currentPage } = this.state;
-          this.setState({ sortAscending: !sortAscending });
-          column.comparator(!sortAscending, currentPage);
-        }}
-      >
-        <img
-          className="arrow-image"
-          src={sortAscending ? arrowDown : arrowUp}
-        />
-        <span>{column.name}</span>
-      </a>
-    ) : (
-      column.name
-    );
+  renderHeaders(columns) {
+    const { sortedBy } = this.state;
+    return columns.map(column => {
+      return (
+        <th>
+          <tr>
+            {column.comparator ? (
+              <a
+                onClick={event => {
+                  event.preventDefault();
+                  this.sortRows(column.key, column.comparator);
+                }}
+              >
+                <img
+                  className="arrow-image"
+                  src={
+                    sortedBy.key === column.key && sortedBy.ascending
+                      ? arrowUp
+                      : arrowDown
+                  }
+                />
+                <span>{column.name}</span>
+              </a>
+            ) : (
+              column.name
+            )}
+          </tr>
+        </th>
+      );
+    });
   }
 
   renderRows() {
