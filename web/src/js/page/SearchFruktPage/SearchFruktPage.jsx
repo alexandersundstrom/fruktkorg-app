@@ -48,7 +48,7 @@ export class SearchFruktPage extends Component {
               },
               { name: 'Senast ändrad', key: 'lastChanged' }
             ],
-            rows,
+            rows: rows.sort((a, b) => a.name.localeCompare(b.name)),
             search: event.target.value
           });
         },
@@ -84,7 +84,8 @@ export class SearchFruktPage extends Component {
           columns={columns}
           rows={rows}
           itemsPerPage={itemsPerPage}
-          noItemsText="Hittade inga fruktkorgar. Sök på en annan frukt."
+          noItemsText="Inga fruktkorgar hittade."
+          sortByKey="name"
         />
       </div>
     );
