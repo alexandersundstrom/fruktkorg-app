@@ -99,7 +99,7 @@ a:hover {
 .brodtext {
   @include themify($themes) {
     color: themed('brodtext-color');
-    font-size: themed('fontsize-percent');
+    font-size: themed('fontsize-percent-based');
   }
   font-family: arial, sans-serif;
   font-style: normal;

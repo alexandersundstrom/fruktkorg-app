@@ -15,15 +15,15 @@ const getDisplayedRows = (rows, currentPage, itemsPerPage) => {
 export class PaginationTable extends Component {
   constructor(props) {
     super(props);
-    const { itemsPerPage } = this.props;
+    const { itemsPerPage, sortByKey } = this.props;
     const currentPage = 1;
 
     this.setState({
       itemsPerPage,
       currentPage,
       sortedBy: {
-        key: null,
-        ascending: false
+        key: sortByKey,
+        ascending: !!sortByKey
       }
     });
   }
@@ -89,9 +89,10 @@ export class PaginationTable extends Component {
 
   renderHeaders(columns) {
     const { sortedBy } = this.state;
+
     return columns.map(column => {
       return (
-        <th>
+        <th className={sortedBy.key === column.key ? 'selected' : 'unselected'}>
           <tr>
             {column.comparator ? (
               <a

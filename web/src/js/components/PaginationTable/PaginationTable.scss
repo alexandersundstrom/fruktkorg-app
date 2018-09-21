@@ -31,3 +31,11 @@
     color: themed('brodtext-color');
   }
 }
+
+th.selected {
+  font-weight: bolder;
+}
+
+th.unselected {
+  font-weight: normal;
+}
