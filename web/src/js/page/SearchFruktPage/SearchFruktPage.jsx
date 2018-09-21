@@ -41,7 +41,11 @@ export class SearchFruktPage extends Component {
                 key: 'name',
                 comparator: (a, b) => a.localeCompare(b)
               },
-              { name: 'Antal frukter', key: 'fruktAmount' },
+              {
+                name: 'Antal frukter',
+                key: 'fruktAmount',
+                comparator: (a, b) => a - b
+              },
               { name: 'Senast ändrad', key: 'lastChanged' }
             ],
             rows,
