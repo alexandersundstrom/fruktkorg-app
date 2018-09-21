@@ -12,6 +12,26 @@ const getDisplayedRows = (rows, currentPage, itemsPerPage) => {
   return rows.slice(startindex, endIndex);
 };
 
+/**
+ * Creates a table with pagination.
+ *
+ * @param {Object} props - Holds the information to render the component
+ *
+ *  @param {Object[]} props.columns - A list of column objects.
+ *    @param {String} props.columns[].name - Displayed in table header.
+ *    @param {String} props.columns[].key - Links row content to the right column. should be the same on both column and row.
+ *    @param {Function} props.columns[].comparator - Optional, a comparator for sorting the column. If not provided, the column is not sortable
+ *
+ *
+ *  @param {Object[]} props.rows The items to render. The properties on the fields is expected to be the same keys defined in columns.
+ *
+ *  @param {Integer} props.itemsPerPage Initials how many items that are displayed on the page.
+ *
+ *  @param {String} props.noItemsText Optional, Adds a message if there are no objects to render.
+ *
+ *  @param {String} props.sortByKey Optional, The key for the column that should be used as the default sorting. Requires a comparator to have been set.
+ *
+ */
 export class PaginationTable extends Component {
   constructor(props) {
     super(props);
