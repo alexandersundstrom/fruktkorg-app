@@ -40,8 +40,7 @@ export class SearchFruktPage extends Component {
               {
                 name: 'Namn',
                 key: 'name',
-                comparator: (a, b) => a.localeCompare(b),
-                isIndex: true
+                comparator: (a, b) => a.localeCompare(b)
               },
               { name: 'Antal frukter',
                 key: 'fruktAmount',

@@ -104,5 +104,6 @@ export class Component {
     return null;
   }
 
+  // Called after the component has been rendered
   componentDidMount() {}
 }

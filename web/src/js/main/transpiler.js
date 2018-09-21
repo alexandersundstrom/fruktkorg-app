@@ -9,6 +9,7 @@ export const virtualDOM = new VirtualDOM();
 const dom = (tag, attrs, ...children) => {
   // Custom Components will be functions
   if (typeof tag === 'function') {
+    // Checking if the function is a component
     if (tag instanceof Object) {
       if (tag.prototype instanceof Component) {
         const component = new tag(attrs);
@@ -18,18 +19,13 @@ const dom = (tag, attrs, ...children) => {
         if (self) {
           component._self = self;
         }
+        // Adding the component to the virtual DOM
         virtualDOM.addComponent(component);
         return self;
       }
-
-      const tagObject = new tag();
-      if (tagObject.render && typeof tagObject.render === 'function') {
-        tagObject.children = children;
-        tagObject.props = attrs;
-        return tagObject.render();
-      }
     }
 
+    // If not a component, using the function as a function
     const result = tag();
     return result === 'FRAGMENT' ? children : result;
   }
@@ -60,11 +56,12 @@ const dom = (tag, attrs, ...children) => {
     Object.assign(element, attrs);
 
     if (attrs instanceof Object) {
+      // Checks for "ref" attribute, and calles it with the element as the parameter
       if (attrs.ref && typeof attrs.ref === 'function') {
         attrs.ref(element);
       }
 
-      // Looks for attributes starting with ON and adds them as events on the element
+      // Looks for attributes starting with "on" and adds them as events on the element
       for (let property in attrs) {
         if (attrs.hasOwnProperty(property)) {
           if (
