@@ -11,7 +11,10 @@ export class Component {
     this.children = null;
   }
 
-  // Inits children and props, run before render
+  /**
+   * Inits children and props, is run before render
+   * @param children The components children
+   */
   _init(children) {
     this.children = children;
 
@@ -32,7 +35,9 @@ export class Component {
     }
   }
 
-  // Rerenders the component if the state/props has changed
+  /**
+   * Rerenders the component if the state/props has changed
+   */
   _reRender() {
     if (!this._self) {
       return;
@@ -49,6 +54,9 @@ export class Component {
 
     let oldSelf = this._self;
     this._self = this.render();
+    if (!this._self) {
+      return;
+    }
 
     // Removes all but one element from the old component
     if (oldSelf.constructor === Array) {
@@ -78,7 +86,10 @@ export class Component {
     virtualDOM.rerenderedComponent(this);
   }
 
-  // Sets the current state, also triggers a rerender
+  /**
+   * Sets the current state, also triggers a rerender
+   * @param newState The new state object, will overrite the exiting properties, add new properties and leave old properties
+   */
   setState(newState) {
     for (let property in newState) {
       if (newState.hasOwnProperty(property)) {
@@ -100,13 +111,25 @@ export class Component {
     this._reRender();
   }
 
+  /**
+   * Called when the component is rendered, should return null | HTMLElements
+   */
   render() {
     return null;
   }
 
-  // Called after the component has been rendered
+  /**
+   * Called after the component has been rendered
+   */
   componentDidMount() {}
 
-  // Called after the component has been removed
+  /**
+   * Called after the component has been removed
+   */
   componentDidUnmount() {}
+
+  /**
+   * Called before unmounting to check if it's okay to unmount, will yield a confirm window if it returns a non-empty string
+   */
+  componentCanUnmount() {}
 }
