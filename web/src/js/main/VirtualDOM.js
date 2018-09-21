@@ -37,6 +37,11 @@ export class VirtualDOM {
   _reconcileComponents(root) {
     // Get the root / sub root to work from
     const rootWrapper = root || this.componentTree;
+
+    if (rootWrapper !== this.componentTree) {
+      this._unmount(rootWrapper);
+    }
+
     rootWrapper.childWrappers = [];
     // Reverses the order as it will always read top to bottom with the most inner element first. Doing so will
     // ensure that we start with the inner most children and working our way outwards
@@ -75,6 +80,13 @@ export class VirtualDOM {
     root.component.componentDidMount();
     for (let childWrapper of root.childWrappers) {
       this._mount(childWrapper);
+    }
+  }
+
+  _unmount(root) {
+    root.component.componentDidUnmount();
+    for (let childWrapper of root.childWrappers) {
+      this._unmount(childWrapper);
     }
   }
 

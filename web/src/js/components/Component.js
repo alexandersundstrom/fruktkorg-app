@@ -106,4 +106,7 @@ export class Component {
 
   // Called after the component has been rendered
   componentDidMount() {}
+
+  // Called after the component has been removed
+  componentDidUnmount() {}
 }
