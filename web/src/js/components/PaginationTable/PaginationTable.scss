@@ -1,5 +1,9 @@
+@import '../../../sass/themes/themes';
+
 .table-row:nth-child(even) {
-  background: #ccc;
+  @include themify($themes) {
+    background: #ccc;
+  }
 }
 
 .table-row:nth-child(odd) {
@@ -18,4 +22,12 @@
 .arrow-image {
   width: 30px;
   vertical-align: middle;
+}
+
+.no-items {
+  text-align: center;
+  margin-top: 20px;
+  @include themify($themes) {
+    color: themed('brodtext-color');
+  }
 }

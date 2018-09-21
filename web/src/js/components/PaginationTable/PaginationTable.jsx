@@ -15,7 +15,7 @@ const getDisplayedRows = (rows, currentPage, itemsPerPage) => {
 export class PaginationTable extends Component {
   constructor(props) {
     super(props);
-    const { rows, columns, itemsPerPage } = this.props;
+    const { rows, columns, itemsPerPage, noItems } = this.props;
     const currentPage = 1;
 
     this.setState({
@@ -23,6 +23,7 @@ export class PaginationTable extends Component {
       currentPage,
       rows,
       columns,
+      noItems,
       sortedBy: {
         key: null,
         ascending: false
@@ -56,27 +57,31 @@ export class PaginationTable extends Component {
   }
 
   render() {
-    const { columns, itemsPerPage, rows, currentPage } = this.state;
+    const { columns, itemsPerPage, rows, currentPage, noItems } = this.state;
 
     if (!columns) {
       return null;
     }
 
-    return (
-      <div>
-        <Pagination
-          currentPage={currentPage}
-          itemsPerPage={itemsPerPage}
-          onItemsPerPageChange={this.onChange.bind(this)}
-          onPageChange={this.onChange.bind(this)}
-          items={rows.length}
-        />
-        <table className="full-width-table">
-          {this.renderHeaders(columns)}
-          {this.renderRows()}
-        </table>
-      </div>
-    );
+    if (rows.length === 0) {
+      return <div className="no-items">{noItems}</div>;
+    } else {
+      return (
+        <div>
+          <Pagination
+            currentPage={currentPage}
+            itemsPerPage={itemsPerPage}
+            onItemsPerPageChange={this.onChange.bind(this)}
+            onPageChange={this.onChange.bind(this)}
+            items={rows.length}
+          />
+          <table className="full-width-table">
+            {this.renderHeaders(columns)}
+            {this.renderRows()}
+          </table>
+        </div>
+      );
+    }
   }
 
   renderHeaders(columns) {

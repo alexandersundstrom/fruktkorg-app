@@ -13,14 +13,15 @@ export class SearchFruktPage extends Component {
       columns: [],
       rows: [],
       search: '',
-      itemsPerPage: 10
+      itemsPerPage: 10,
+      noItems: ''
     });
     this.inputElement = null;
   }
 
   handleSearch(event) {
     event.preventDefault();
-    if (event.keyCode === ENTER_KEY) {
+    if (event.keyCode === ENTER_KEY && event.target.value) {
       glassOn('Laddar...');
       $.ajax({
         url: `http://localhost:8090/fruktkorg/frukt/${event.target.value}`,
@@ -42,11 +43,15 @@ export class SearchFruktPage extends Component {
                 comparator: (a, b) => a.localeCompare(b),
                 isIndex: true
               },
-              { name: 'Antal frukter', key: 'fruktAmount' },
+              { name: 'Antal frukter',
+                key: 'fruktAmount',
+                comparator: (a, b) => a - b,
+              },
               { name: 'Senast ändrad', key: 'lastChanged' }
             ],
             rows,
-            search: event.target.value
+            search: event.target.value,
+            noItems: rows.length === 0 ? 'Hittade inga fruktkorgar. Sök på annan frukt.' :'',
           });
         },
         error: error => {
@@ -61,7 +66,7 @@ export class SearchFruktPage extends Component {
   }
 
   render() {
-    const { columns, rows, search, itemsPerPage } = this.state;
+    const { columns, rows, search, itemsPerPage, noItems } = this.state;
 
     return (
       <div>
@@ -81,6 +86,7 @@ export class SearchFruktPage extends Component {
           columns={columns}
           rows={rows}
           itemsPerPage={itemsPerPage}
+          noItems={noItems}
         />
       </div>
     );
