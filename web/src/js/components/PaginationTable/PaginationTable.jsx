@@ -15,15 +15,12 @@ const getDisplayedRows = (rows, currentPage, itemsPerPage) => {
 export class PaginationTable extends Component {
   constructor(props) {
     super(props);
-    const { rows, columns, itemsPerPage, noItems } = this.props;
+    const { itemsPerPage } = this.props;
     const currentPage = 1;
 
     this.setState({
       itemsPerPage,
       currentPage,
-      rows,
-      columns,
-      noItems,
       sortedBy: {
         key: null,
         ascending: false
@@ -39,7 +36,8 @@ export class PaginationTable extends Component {
   }
 
   sortRows(key, comparator) {
-    const { rows, sortedBy } = this.state;
+    const { sortedBy } = this.state;
+    const { rows } = this.props;
 
     const ascending = sortedBy.key === key ? !sortedBy.ascending : true;
 
@@ -57,22 +55,27 @@ export class PaginationTable extends Component {
   }
 
   render() {
-    const { columns, itemsPerPage, rows, currentPage, noItems } = this.state;
+    const { itemsPerPage, currentPage } = this.state;
+    const { noItemsText, columns, rows } = this.props;
 
-    if (!columns) {
+    if (!rows || !columns) {
       return null;
     }
 
     if (rows.length === 0) {
-      return <div className="no-items">{noItems}</div>;
+      return <div className="no-items">{noItemsText}</div>;
     } else {
       return (
         <div>
           <Pagination
             currentPage={currentPage}
             itemsPerPage={itemsPerPage}
-            onItemsPerPageChange={this.onChange.bind(this)}
-            onPageChange={this.onChange.bind(this)}
+            onItemsPerPageChange={(currentPage, itemsPerPage) =>
+              this.onChange(currentPage, itemsPerPage)
+            }
+            onPageChange={(currentPage, itemsPerPage) =>
+              this.onChange(currentPage, itemsPerPage)
+            }
             items={rows.length}
           />
           <table className="full-width-table">
@@ -117,7 +120,9 @@ export class PaginationTable extends Component {
   }
 
   renderRows() {
-    const { columns, rows, currentPage, itemsPerPage } = this.state;
+    const { currentPage, itemsPerPage } = this.state;
+    const { columns, rows } = this.props;
+
     const displayedRows = getDisplayedRows(rows, currentPage, itemsPerPage);
     return displayedRows
       ? displayedRows.map(row => {

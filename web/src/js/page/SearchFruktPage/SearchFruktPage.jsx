@@ -10,11 +10,10 @@ export class SearchFruktPage extends Component {
   constructor(props) {
     super(props);
     this.setState({
-      columns: [],
-      rows: [],
+      columns: null,
+      rows: null,
       search: '',
-      itemsPerPage: 10,
-      noItems: ''
+      itemsPerPage: 10
     });
     this.inputElement = null;
   }
@@ -42,15 +41,15 @@ export class SearchFruktPage extends Component {
                 key: 'name',
                 comparator: (a, b) => a.localeCompare(b)
               },
-              { name: 'Antal frukter',
+              {
+                name: 'Antal frukter',
                 key: 'fruktAmount',
-                comparator: (a, b) => a - b,
+                comparator: (a, b) => a - b
               },
               { name: 'Senast ändrad', key: 'lastChanged' }
             ],
             rows,
-            search: event.target.value,
-            noItems: rows.length === 0 ? 'Hittade inga fruktkorgar. Sök på annan frukt.' :'',
+            search: event.target.value
           });
         },
         error: error => {
@@ -65,7 +64,7 @@ export class SearchFruktPage extends Component {
   }
 
   render() {
-    const { columns, rows, search, itemsPerPage, noItems } = this.state;
+    const { columns, rows, search, itemsPerPage } = this.state;
 
     return (
       <div>
@@ -85,7 +84,7 @@ export class SearchFruktPage extends Component {
           columns={columns}
           rows={rows}
           itemsPerPage={itemsPerPage}
-          noItems={noItems}
+          noItemsText="Hittade inga fruktkorgar. Sök på en annan frukt."
         />
       </div>
     );
