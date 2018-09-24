@@ -29,8 +29,11 @@ export const ACTIVITIES = [
 ];
 
 /**
- * Gets the activities that can be accessed with the given permissions
- * @param permissions the users permissions
+ * Gets the activities that can be accessed with the given permissions.
+ *
+ * @param {String[]} permissions The users permissions.
+ *
+ * @return {Object[]} The permitted activities
  */
 export const getActivitiesByPermissions = permissions => {
   const permittedActivities = [];
@@ -47,8 +50,11 @@ export const getActivitiesByPermissions = permissions => {
 };
 
 /**
- * Get the activity that for the provided path
- * @param path the activitys path
+ * Get the activity that for the provided path.
+ *
+ * @param {String} path The activitys path.
+ *
+ * @return {Object | null} The activity with the provided path, or null if no match was found.
  */
 export const getActivityByPath = path => {
   for (let activity of ACTIVITIES) {
@@ -61,15 +67,16 @@ export const getActivityByPath = path => {
 };
 
 /**
- * Navigates to provided hash
- * @param hash the hash to navigate to
+ * Navigates to provided hash.
+ *
+ * @param {String} hash The hash to navigate to.
  */
 export const navigate = hash => {
   window.location = hash;
 };
 
 /**
- * Initailizes the app navigation
+ * Initailizes the app navigation.
  */
 export const initNavigation = () => {
   currentPage = window.location.hash;

@@ -8,7 +8,7 @@ let concurrentGlassOnCount = 0;
  * Takes one argument, the loading message to be displayed. Part of the Glass component.
  * @type {function}
  *
- * @param {String } text - The message to be displayed
+ * @param {String} text The message to be displayed.
  */
 export const glassOn = text => {
   ++concurrentGlassOnCount;

@@ -11,8 +11,9 @@ export class VirtualDOM {
   }
 
   /**
-   * Initializes the virtual DOM
-   * @param rootElement this is the HTMLElement that the app will be rendered in.
+   * Initializes the virtual DOM.
+   *
+   * @param {HTMLElement} rootElement This is the element that the app will be rendered in.
    */
   init(rootElement) {
     this.rootElement = rootElement;
@@ -31,15 +32,17 @@ export class VirtualDOM {
 
   /**
    * Adds a component to pending components, will be added to the DOM when it reconciles next.
-   * @param component the component that should be added
+   *
+   * @param {Component} component The component that should be added.
    */
   addComponent(component) {
     this.pendingWrappers.push(new ComponentWrapper(component));
   }
 
   /**
-   * Called when a component gets rerendered from a state/prop change
-   * @param component the component that has been rerendered
+   * Called when a component gets rerendered from a state/prop change.
+   *
+   * @param {ComponentWrapper} component The component that has been rerendered.
    */
   rerenderedComponent(component) {
     const wrapper = this._findWrapper(component._id, this.componentTree);
@@ -50,8 +53,9 @@ export class VirtualDOM {
   }
 
   /**
-   * Sets up the component tree
-   * @param root the tree root
+   * Sets up the component tree.
+   *
+   * @param {ComponentWrapper} [root=this.componentTree] The tree root.
    */
   _reconcileComponents(root) {
     // Get the root / sub root to work from
@@ -82,8 +86,11 @@ export class VirtualDOM {
 
   /**
    * Traverses through the component tree to find the wrapper with the specified id.
-   * @param id the wrapper id
-   * @param root root of the tree that should be traversed
+   *
+   * @param {String}            id    The wrapper id.
+   * @param {ComponentWrapper}  root  Root of the tree that should be traversed.
+   *
+   * @return {ComponentWrapper | null} The wrapper with the provided id, or null if none was found.
    */
   _findWrapper(id, root) {
     if (root.id === id) {
@@ -101,8 +108,9 @@ export class VirtualDOM {
   }
 
   /**
-   * Calles componentDidMount on all components in the specified tree
-   * @param root root of the tree
+   * Calles componentDidMount on all components in the specified tree.
+   *
+   * @param {ComponentWrapper} root Root of the tree.
    */
   _mount(root) {
     root.component.componentDidMount();
@@ -112,8 +120,9 @@ export class VirtualDOM {
   }
 
   /**
-   * Calles componentDidUnmount on all components in the specified tree
-   * @param root root of the tree
+   * Calles componentDidUnmount on all components in the specified tree.
+   *
+   * @param {ComponentWrapper} root Root of the tree.
    */
   _unmount(root) {
     root.component.componentDidUnmount();
@@ -123,9 +132,12 @@ export class VirtualDOM {
   }
 
   /**
-   * Traverses through the component tree to find the closest parent to the specified wrapper
-   * @param parent the current parent
-   * @param wrapper the wrapper hows parent should be found
+   * Traverses through the component tree to find the closest parent to the specified wrapper.
+   *
+   * @param {ComponentWrapper} parent   The current parent.
+   * @param {ComponentWrapper} wrapper  The wrapper hows parent should be found.
+   *
+   * @return {ComponentWrapper | null} The closest parent, or null if none was found.
    */
   _findParent(parent, wrapper) {
     if ($.contains(parent.component._self, wrapper.component._self)) {
@@ -146,8 +158,11 @@ export class VirtualDOM {
 
   /**
    * Traverses through the component tree to check if the components can be unmounted
-   * returns a non-empty string if one or more component shouldn't be unmounted
-   * @param root the component tree to check
+   * returns a non-empty string if one or more component shouldn't be unmounted.
+   *
+   * @param {ComponentWrapper} [root=this.componentTree] The component tree to check.
+   *
+   * @return {String | null} The message that should be displayed, or null if unmounting is ok.
    */
   canUnmountComponents(root) {
     root = root || this.componentTree;

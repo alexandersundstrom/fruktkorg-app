@@ -12,8 +12,9 @@ export class Component {
   }
 
   /**
-   * Inits children and props, is run before render
-   * @param children The components children
+   * Inits children and props, is run before render.
+   *
+   * @param {HTMLElement[]} children The components children.
    */
   _init(children) {
     this.children = children;
@@ -36,7 +37,7 @@ export class Component {
   }
 
   /**
-   * Rerenders the component if the state/props has changed
+   * Rerenders the component if the state/props has changed.
    */
   _reRender() {
     if (!this._self) {
@@ -87,8 +88,9 @@ export class Component {
   }
 
   /**
-   * Sets the current state, also triggers a rerender
-   * @param newState The new state object, will overrite the exiting properties, add new properties and leave old properties
+   * Sets the current state, also triggers a rerender.
+   *
+   * @param {Object} newState The new state object, will overrite the exiting properties, add new properties and leave old properties.
    */
   setState(newState) {
     let madeChange = false;
@@ -121,24 +123,30 @@ export class Component {
   }
 
   /**
-   * Called when the component is rendered, should return null | HTMLElements
+   * Called when the component is rendered.
+   *
+   * @return {HTMLElement | null} The component that should be rendered, or null if nothing should be rendered.
    */
   render() {
     return null;
   }
 
   /**
-   * Called after the component has been rendered
+   * Called after the component has been rendered.
    */
   componentDidMount() {}
 
   /**
-   * Called after the component has been removed
+   * Called after the component has been removed.
    */
   componentDidUnmount() {}
 
   /**
-   * Called before unmounting to check if it's okay to unmount, will yield a confirm window if it returns a non-empty string
+   * Called before unmounting to check if it's okay to unmount, will yield a confirm window if it returns a non-empty string.
+   *
+   * @return {String} The message that should be displayed.
    */
-  componentCanUnmount() {}
+  componentCanUnmount() {
+    return null;
+  }
 }
