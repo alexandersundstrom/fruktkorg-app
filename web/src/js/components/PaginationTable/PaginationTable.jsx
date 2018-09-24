@@ -117,9 +117,10 @@ export class PaginationTable extends Component {
     return columns.map(column => {
       return (
         <th className={sortedBy.key === column.key ? 'selected' : 'unselected'}>
-          <tr>
+          <td>
             {column.comparator ? (
               <a
+                id={`sort-by-${column.key}`}
                 onClick={event => {
                   event.preventDefault();
                   this.sortRows(column.key, column.comparator);
@@ -138,7 +139,7 @@ export class PaginationTable extends Component {
             ) : (
               column.name
             )}
-          </tr>
+          </td>
         </th>
       );
     });
