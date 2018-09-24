@@ -13,7 +13,7 @@ const getDisplayedRows = (rows, currentPage, itemsPerPage) => {
 };
 
 /**
- * Creates a table with pagination.
+ * Creates a table with a pagination component.
  *
  * @param {Object} props - Holds the information to render the component
  *
