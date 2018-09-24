@@ -3,6 +3,18 @@ import { Component } from '../Component';
 import './Pagination.scss';
 import '../../../sass/common.scss';
 
+/**
+ * A generic component that can be used where pagination is needed. Renders a pagination bar.
+ *
+ * @param {Object} props - Holds the information to render the component
+ *  @param {Integer} props.items - The amount of items
+ *  @param {Integer} props.itemsPerPage - The amount of items to display per page
+ *  @param {Integer} props.currentPage - The number for the current page to be displayed
+ *  @param {Function} props.onPageChange - Optional, An callback function called when changing the current page.
+ *  Called with two parameters, pageNumber and itemsPerPage. Use this to update other components that displays items.
+ *  @param {Function} props.onItemsPerPageChange - Called when the amount of items per page changes.
+ *  Called with two parameters, pageNumber and itemsPerPage. Use this to update other components that displays items.
+ */
 export class Pagination extends Component {
   constructor(props) {
     super(props);

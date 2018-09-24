@@ -13,7 +13,7 @@ const getDisplayedRows = (rows, currentPage, itemsPerPage) => {
 };
 
 /**
- * Creates a table with pagination.
+ * Creates a table with a pagination component.
  *
  * @param {Object} props - Holds the information to render the component
  *
@@ -113,9 +113,10 @@ export class PaginationTable extends Component {
     return columns.map(column => {
       return (
         <th className={sortedBy.key === column.key ? 'selected' : 'unselected'}>
-          <tr>
+          <td>
             {column.comparator ? (
               <a
+                id={`sort-by-${column.key}`}
                 onClick={event => {
                   event.preventDefault();
                   this.sortRows(column.key, column.comparator);
@@ -134,7 +135,7 @@ export class PaginationTable extends Component {
             ) : (
               column.name
             )}
-          </tr>
+          </td>
         </th>
       );
     });

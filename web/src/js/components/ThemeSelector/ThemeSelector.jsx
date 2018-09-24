@@ -7,6 +7,10 @@ const onChange = event => {
   $('#root').addClass(event.target.value);
 };
 
+/**
+ * Creates an element for changing CSS theme. Themes are defined in themes.scss along with functions (themify and themed) used for creating
+ * theme specific styling. See Header.scss as a reference for usage.
+ */
 export class ThemeSelector extends Component {
   render() {
     return (
