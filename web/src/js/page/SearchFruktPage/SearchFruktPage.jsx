@@ -75,6 +75,7 @@ export class SearchFruktPage extends Component {
         </h3>
         <span>Namn på frukt </span>
         <input
+          id="search"
           value={search}
           type="text"
           ref={inputElement => (this.inputElement = inputElement)}
