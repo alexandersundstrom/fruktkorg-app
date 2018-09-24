@@ -22,11 +22,13 @@ This is the GUI. It's using webpack that compiles js and scss file, and starts a
 * Install NPM 
 * Run `npm install` under the web module
 
-One of the plugins installed by npm is [Prettier](https://prettier.io/). It's used for formatting js and scss files.
+This will install [Prettier](https://prettier.io/). It's used for formatting js and scss files.
 Many IDEs, like IntelliJ also has a plugin that can be used for formatting together with *Prettier*. 
 
-It's optional to install, but it's strongly recommended so that formatting is treated the same by all.
-This will be added as an additional prepush hook, so that the IDE specific ide plugin won't be needed.
+There is also a `post-commit` and `pre-commit` hook added. Install those and *Prettier* will executed when commiting. 
+
+Npm also installs [JSDoc 3](https://www.npmjs.com/package/jsdoc). This created html views for javascript documentation. 
+The output folder is `out`. It's created once you run `npm run dev` or `npm run jsdoc`. 
 
 ### Run
 * `npm run dev` and open [localhost:8080](http://localhost:8080)

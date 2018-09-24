@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --inline --history-api-fallback --progress"
+    "dev": " npm run jsdoc; webpack-dev-server --inline --history-api-fallback --progress",
+    "jsdoc": "jsdoc src -r"
   },
   "repository": {
     "type": "git",
