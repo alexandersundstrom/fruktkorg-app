@@ -1,44 +1,24 @@
 import dom from '../../main/transpiler';
 import { Component } from '../Component';
-import { ACTIVITIES } from '../../util/Navigation';
+import {
+  navigate,
+  getActivityByPath,
+  getActivitiesByPermissions
+} from '../../util/Navigation';
 
 import './Navbar.scss';
-
-const getActivities = permissions => {
-  const permittedActivities = [];
-
-  for (let i = 0; i < permissions.length; ++i) {
-    for (let j = 0; j < ACTIVITIES.length; ++j) {
-      if (ACTIVITIES[j].key === permissions[i]) {
-        permittedActivities.push(ACTIVITIES[j]);
-      }
-    }
-  }
-
-  return permittedActivities;
-};
-
-const getActivity = path => {
-  for (let activity of ACTIVITIES) {
-    if (activity.path === path) {
-      return activity;
-    }
-  }
-
-  return null;
-};
 
 export class Navbar extends Component {
   constructor(props) {
     super(props);
 
     this.setState({
-      activeActivity: getActivity(window.location.hash)
+      activeActivity: getActivityByPath(window.location.hash || '#')
     });
 
     window.addEventListener('hashchange', () => {
       this.setState({
-        activeActivity: getActivity(window.location.hash)
+        activeActivity: getActivityByPath(window.location.hash || '#')
       });
     });
   }
@@ -54,7 +34,7 @@ export class Navbar extends Component {
               <div className="column-12">
                 <div className="menu-container">
                   <ul className="nav">
-                    {getActivities(permissions).map(activity => {
+                    {getActivitiesByPermissions(permissions).map(activity => {
                       return (
                         <li
                           id={activity.id}
@@ -64,7 +44,9 @@ export class Navbar extends Component {
                               : ''
                           }
                         >
-                          <a href={activity.path}>{activity.displayName}</a>
+                          <a onClick={() => navigate(activity.path)}>
+                            {activity.displayName}
+                          </a>
                         </li>
                       );
                     })}

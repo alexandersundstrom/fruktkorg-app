@@ -74,10 +74,6 @@ export class PaginationTable extends Component {
     });
   }
 
-  componentCanUnmount() {
-    return 'NEIN';
-  }
-
   render() {
     const { itemsPerPage, currentPage } = this.state;
     const { noItemsText, columns, rows } = this.props;

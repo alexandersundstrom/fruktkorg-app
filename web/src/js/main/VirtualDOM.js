@@ -1,3 +1,5 @@
+import { initNavigation } from '../util/Navigation';
+
 export class VirtualDOM {
   constructor() {
     // Components not yet in the component tree
@@ -24,7 +26,7 @@ export class VirtualDOM {
     });
     // Creates the component tree
     this._reconcileComponents();
-    this._initNavListener();
+    initNavigation();
   }
 
   /**
@@ -143,27 +145,14 @@ export class VirtualDOM {
   }
 
   /**
-   * Initializes navigation listeners
-   */
-  _initNavListener() {
-    window.addEventListener('beforeunload', event => {
-      const canUnmount = this._canUnmountComponents(this.componentTree);
-      if (canUnmount) {
-        event.preventDefault();
-        event.returnValue = canUnmount;
-        return canUnmount;
-      }
-    });
-  }
-
-  /**
    * Traverses through the component tree to check if the components can be unmounted
    * returns a non-empty string if one or more component shouldn't be unmounted
    * @param root the component tree to check
    */
-  _canUnmountComponents(root) {
+  canUnmountComponents(root) {
+    root = root || this.componentTree;
     for (let childWrapper of root.childWrappers) {
-      const canUnmount = this._canUnmountComponents(childWrapper);
+      const canUnmount = this.canUnmountComponents(childWrapper);
       if (canUnmount && typeof canUnmount === 'string') {
         return canUnmount;
       }

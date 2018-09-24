@@ -91,10 +91,16 @@ export class Component {
    * @param newState The new state object, will overrite the exiting properties, add new properties and leave old properties
    */
   setState(newState) {
+    let madeChange = false;
+
     for (let property in newState) {
       if (newState.hasOwnProperty(property)) {
         if (typeof this.state[property] !== 'undefined') {
+          if (this.state[`_${property}`] === newState[property]) {
+            continue;
+          }
           this.state[`_${property}`] = newState[property];
+          madeChange = true;
         } else {
           this.state[`_${property}`] = newState[property];
           const prot = this.state;
@@ -104,11 +110,14 @@ export class Component {
               return this.state[`_${property}`];
             }
           });
+          madeChange = true;
         }
       }
     }
 
-    this._reRender();
+    if (madeChange) {
+      this._reRender();
+    }
   }
 
   /**
