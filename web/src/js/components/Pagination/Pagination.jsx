@@ -126,7 +126,7 @@ export class Pagination extends Component {
     }
 
     return (
-      <div className="pagination-container">
+      <div id="pagination-container" className="pagination-container">
         <div className="flex-div">
           <div className="flex-div">
             <div className="page">
