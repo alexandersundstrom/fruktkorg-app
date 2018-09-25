@@ -70,7 +70,7 @@ public class ChromeTest {
             String fileName = description.getTestClass().getSimpleName() + "." + methodName + ".png";
 
             try {
-                File destiny = new File( SCREENSHOT_FOLDER + "/" + fileName);
+                File destiny = new File(SCREENSHOT_FOLDER + "/" + fileName);
                 FileUtils.copyFile(((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE), destiny);
             } catch (IOException ioe) {
                 throw new RuntimeException(ioe);
@@ -119,7 +119,7 @@ public class ChromeTest {
         waitForTextByXPath(FIRST_ROW_AND_FIRST_COLUMN, "Kafferummet 101");
 
         List rows = table.findElements(By.tagName("tr"));
-        Assert.assertEquals("Expected 50 Rows, was" + rows.size(), 50, rows.size());
+        Assert.assertEquals(10, rows.size());
 
         waitAndGetElementById(ID_NAME_TOGGLE).click();
         waitForTextByXPath(FIRST_ROW_AND_FIRST_COLUMN, "96");
