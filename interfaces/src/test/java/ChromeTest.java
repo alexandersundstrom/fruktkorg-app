@@ -11,6 +11,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
@@ -20,6 +21,14 @@ public class ChromeTest {
 
     private static WebDriver driver;
     private static BrowserMobProxy proxy;
+    private static final String FIRST_ROW_AND_FIRST_COLUMN = "//tr[1]/td[1]";
+    private WebElement firstPageButton;
+    private WebElement previousPageButton;
+    private WebElement nextPageButton;
+    private WebElement lastPageButton;
+    private Select limitSelector;
+    private WebElement pageInfo;
+    private WebElement table;
 
     @BeforeClass
     public static void setUp() {
@@ -36,35 +45,61 @@ public class ChromeTest {
 
         proxy.enableHarCaptureTypes(CaptureType.REQUEST_CONTENT, CaptureType.RESPONSE_CONTENT);
 
+        proxy.addHeader("X-PERSONR", "19880301-1234");
+
         System.setProperty("webdriver.chrome.driver", ChromeTest.class.getResource("chromedriver").getFile());
         driver = new ChromeDriver(capabilities);
     }
 
     @Test
     public void searchAndSortFruktkorg() {
-        proxy.addHeader("X-PERSONR", "19880301-1234");
+
         driver.get("http://localhost:8080");
 
-        waitForElementById("menu_searchfrukt");
-        driver.findElement(By.id("menu_searchfrukt")).click();
+        waitAndGetElementById("menu_searchfrukt").click();
 
-        waitForElementById("search");
-        driver.findElement(By.id("search")).sendKeys("Päron" + Keys.ENTER);
+        waitAndGetElementById("search").sendKeys("Päron" + Keys.ENTER);
 
-        waitForElementById("fruktSearchTable");
 
-        WebElement table = driver.findElement(By.ByClassName.className("full-width-table"));
-        Assert.assertNotNull("Could not find table", table);
-
-        String firstRowAndFirstColumn = "//tr[1]/td[1]";
-        waitForTextByXPath(firstRowAndFirstColumn, "Kafferummet 101");
+        WebElement table = waitAndGetElementByClassName("full-width-table");
+        waitForTextByXPath(FIRST_ROW_AND_FIRST_COLUMN, "Kafferummet 101");
 
         List rows = table.findElements(By.tagName("tr"));
-        Assert.assertEquals("Should be 10 Fruktkorgar displayed", 10, rows.size());
+        Assert.assertEquals(10, rows.size());
 
-        driver.findElement(By.id("sort-by-name")).click();
-        waitForTextByXPath(firstRowAndFirstColumn, "96");
+        waitAndGetElementById("sort-by-name").click();
+        waitForTextByXPath(FIRST_ROW_AND_FIRST_COLUMN, "96");
 
+    }
+
+    @Test
+    public void searchAndChangeLimit() {
+        driver.get("http://localhost:8080");
+
+        waitAndGetElementById("menu_searchfrukt")
+                .click();
+
+        waitAndGetElementById("search")
+                .sendKeys("Päron" + Keys.ENTER);
+
+        getAllPaginationElements();
+
+        Assert.assertTrue(elementHasClass( "disabled", firstPageButton));
+        Assert.assertTrue(elementHasClass( "disabled", previousPageButton));
+        Assert.assertFalse(elementHasClass("disabled", nextPageButton));
+        Assert.assertFalse(elementHasClass( "disabled", lastPageButton));
+        Assert.assertEquals("Default select value not correct", "10", limitSelector.getFirstSelectedOption().getText());
+        Assert.assertEquals("Visar 1-10 av 100", pageInfo.getText());
+
+        limitSelector.selectByValue("25");
+
+        pageInfo = waitAndGetElementById("pageInfo");
+        Assert.assertEquals("Visar 1-25 av 100", pageInfo.getText());
+
+        table = waitAndGetElementByClassName("full-width-table");
+
+        List rows = table.findElements(By.tagName("tr"));
+        Assert.assertEquals(25, rows.size());
     }
 
     @AfterClass
@@ -75,9 +110,17 @@ public class ChromeTest {
         }
     }
 
-    public static void waitForElementById(String id) {
+    public static WebElement waitAndGetElementById(String id) {
         WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("menu_searchfrukt")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(id)));
+        return driver.findElement(By.id(id));
+    }
+
+    public static WebElement waitAndGetElementByClassName(String className) {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.ByClassName.className(className)));
+        return driver.findElement(By.ByClassName.className(className));
+
     }
 
     public static void waitForTextByXPath(String path, String text) {
@@ -85,5 +128,17 @@ public class ChromeTest {
         wait.until(ExpectedConditions.textToBePresentInElement(By.xpath(path), text));
     }
 
+    public static boolean elementHasClass(String className,WebElement element) {
+        return element.getAttribute("class").contains(className);
+    }
+
+    public void getAllPaginationElements() {
+        firstPageButton = waitAndGetElementById("firstPageButton");
+        previousPageButton = waitAndGetElementById("previousPageButton");
+        lastPageButton = waitAndGetElementById("lastPageButton");
+        nextPageButton = waitAndGetElementById("nextPageButton");
+        limitSelector = new Select(waitAndGetElementById("limitSelector"));
+        pageInfo = waitAndGetElementById("pageInfo");
+    }
 
 }
