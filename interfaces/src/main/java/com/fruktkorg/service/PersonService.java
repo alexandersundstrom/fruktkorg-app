@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class PersonService {
     private static List<Person> persons = Arrays.asList(
-            new Person("19880301-1234", "John Doe", Arrays.asList(Permission.SEARCH)),
+            new Person("19880301-1234", "John Doe", Arrays.asList(Permission.SEARCH, Permission.CREATE)),
             new Person("19900801-1234", "Jane Doe", new ArrayList<>())
     );
 

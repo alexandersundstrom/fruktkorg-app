@@ -1,6 +1,7 @@
 import { SearchFruktPage } from '../page/SearchFruktPage/SearchFruktPage.jsx';
 import { WelcomePage } from '../page/WelcomePage/WelcomePage.jsx';
 import { virtualDOM } from '../main/transpiler';
+import { CreateFruktkorgPage } from '../page/CreateFruktkorgPage/CreateFruktkorgPage.jsx';
 
 let currentPage;
 
@@ -20,11 +21,11 @@ export const ACTIVITIES = [
     page: SearchFruktPage
   },
   {
-    key: 'LIST',
-    id: 'menu_listfruktkorgar',
-    displayName: 'Fruktkorgar',
-    path: '#listFruktkorgar',
-    page: null
+    key: 'CREATE',
+    id: 'menu_createfruktkorg',
+    displayName: 'Skapa Fruktkorg',
+    path: '#createFruktkorg',
+    page: CreateFruktkorgPage
   }
 ];
 
@@ -36,11 +37,11 @@ export const ACTIVITIES = [
  * @return {Object[]} The permitted activities
  */
 export const getActivitiesByPermissions = permissions => {
-  const permittedActivities = [];
+  const permittedActivities = [ACTIVITIES[0]];
 
   for (let permission of permissions) {
     for (let activity of ACTIVITIES) {
-      if (activity.key === '' || activity.key === permission) {
+      if (activity.key === permission) {
         permittedActivities.push(activity);
       }
     }

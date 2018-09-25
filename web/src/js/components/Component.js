@@ -109,6 +109,16 @@ export class Component {
           Object.defineProperty(prot, property, {
             set: x => {},
             get: () => {
+              if (!this.state[`_${property}`]) {
+                return this.state[`_${property}`];
+              }
+              if (this.state[`_${property}`].constructor === Array) {
+                return [...this.state[`_${property}`]];
+              }
+              if (typeof this.state[`_${property}`] === 'object') {
+                return { ...this.state[`_${property}`] };
+              }
+
               return this.state[`_${property}`];
             }
           });
