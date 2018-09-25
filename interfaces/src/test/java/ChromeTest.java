@@ -29,6 +29,12 @@ public class ChromeTest {
     private Select limitSelector;
     private WebElement pageInfo;
     private WebElement table;
+    private final String PAGEINFO_ID = "pageInfo";
+    private final String SEARCH_FRUKT_TAB_ID = "menu_searchfrukt";
+    private final String TEXTFIELD_SEARCH_ID = "search";
+    private final String TABLE_ID = "full-width-table";
+    private final String NAME_TOGGLE_ID = "sort-by-name";
+    private final String BASE_URL = "http://localhost:8080";
 
     @BeforeClass
     public static void setUp() {
@@ -54,32 +60,31 @@ public class ChromeTest {
     @Test
     public void searchAndSortFruktkorg() {
 
-        driver.get("http://localhost:8080");
+        driver.get(BASE_URL);
 
-        waitAndGetElementById("menu_searchfrukt").click();
+        waitAndGetElementById(SEARCH_FRUKT_TAB_ID).click();
 
-        waitAndGetElementById("search").sendKeys("Päron" + Keys.ENTER);
+        waitAndGetElementById(TEXTFIELD_SEARCH_ID).sendKeys("Päron" + Keys.ENTER);
 
-
-        WebElement table = waitAndGetElementByClassName("full-width-table");
+        WebElement table = waitAndGetElementByClassName(TABLE_ID);
         waitForTextByXPath(FIRST_ROW_AND_FIRST_COLUMN, "Kafferummet 101");
 
         List rows = table.findElements(By.tagName("tr"));
         Assert.assertEquals(10, rows.size());
 
-        waitAndGetElementById("sort-by-name").click();
+        waitAndGetElementById(NAME_TOGGLE_ID).click();
         waitForTextByXPath(FIRST_ROW_AND_FIRST_COLUMN, "96");
 
     }
 
     @Test
-    public void searchAndChangeLimit() {
-        driver.get("http://localhost:8080");
+    public void searchAndChangeItemsPerPage() {
+        driver.get(BASE_URL);
 
-        waitAndGetElementById("menu_searchfrukt")
+        waitAndGetElementById(SEARCH_FRUKT_TAB_ID)
                 .click();
 
-        waitAndGetElementById("search")
+        waitAndGetElementById(TEXTFIELD_SEARCH_ID)
                 .sendKeys("Päron" + Keys.ENTER);
 
         getAllPaginationElements();
@@ -93,13 +98,78 @@ public class ChromeTest {
 
         limitSelector.selectByValue("25");
 
-        pageInfo = waitAndGetElementById("pageInfo");
-        Assert.assertEquals("Visar 1-25 av 100", pageInfo.getText());
+        this.pageInfo = waitAndGetElementById(PAGEINFO_ID);
+        Assert.assertEquals("Visar 1-25 av 100", this.pageInfo.getText());
 
-        table = waitAndGetElementByClassName("full-width-table");
+        table = waitAndGetElementByClassName(TABLE_ID);
 
         List rows = table.findElements(By.tagName("tr"));
         Assert.assertEquals(25, rows.size());
+    }
+
+    @Test
+    public void searchAndChangePage() {
+        driver.get(BASE_URL);
+
+        waitAndGetElementById(SEARCH_FRUKT_TAB_ID)
+                .click();
+
+        waitAndGetElementById(TEXTFIELD_SEARCH_ID)
+                .sendKeys("Päron" + Keys.ENTER);
+
+        getAllPaginationElements();
+
+        nextPageButton.click();
+        getAllPaginationElements();
+
+        Assert.assertEquals("Visar 11-20 av 100", this.pageInfo.getText());
+        Assert.assertFalse(elementHasClass( "disabled", firstPageButton));
+        Assert.assertFalse(elementHasClass( "disabled", previousPageButton));
+        Assert.assertFalse(elementHasClass("disabled", nextPageButton));
+        Assert.assertFalse(elementHasClass( "disabled", lastPageButton));
+
+        lastPageButton.click();
+        getAllPaginationElements();
+
+        Assert.assertEquals("Visar 91-100 av 100", this.pageInfo.getText());
+        Assert.assertFalse(elementHasClass( "disabled", firstPageButton));
+        Assert.assertFalse(elementHasClass( "disabled", previousPageButton));
+        Assert.assertTrue(elementHasClass("disabled", nextPageButton));
+        Assert.assertTrue(elementHasClass( "disabled", lastPageButton));
+
+        this.previousPageButton.click();
+        getAllPaginationElements();
+
+        Assert.assertEquals("Visar 81-90 av 100", this.pageInfo.getText());
+        Assert.assertFalse(elementHasClass( "disabled", firstPageButton));
+        Assert.assertFalse(elementHasClass( "disabled", previousPageButton));
+        Assert.assertFalse(elementHasClass("disabled", nextPageButton));
+        Assert.assertFalse(elementHasClass( "disabled", lastPageButton));
+
+        firstPageButton.click();
+        getAllPaginationElements();
+
+        Assert.assertEquals("Visar 1-10 av 100", this.pageInfo.getText());
+        Assert.assertTrue(elementHasClass( "disabled", firstPageButton));
+        Assert.assertTrue(elementHasClass( "disabled", previousPageButton));
+        Assert.assertFalse(elementHasClass("disabled", nextPageButton));
+        Assert.assertFalse(elementHasClass( "disabled", lastPageButton));
+
+        nextPageButton.click();
+        getAllPaginationElements();
+
+        Assert.assertEquals("Visar 11-20 av 100", this.pageInfo.getText());
+        Assert.assertFalse(elementHasClass( "disabled", firstPageButton));
+
+        limitSelector.selectByValue("25");
+        getAllPaginationElements();
+
+        Assert.assertEquals("Visar 26-50 av 100", this.pageInfo.getText());
+        Assert.assertFalse(elementHasClass( "disabled", firstPageButton));
+        Assert.assertFalse(elementHasClass( "disabled", previousPageButton));
+        Assert.assertFalse(elementHasClass("disabled", nextPageButton));
+        Assert.assertFalse(elementHasClass( "disabled", lastPageButton));
+
     }
 
     @AfterClass
