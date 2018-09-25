@@ -17,7 +17,7 @@ export class ThemeSelector extends Component {
       <div className="theme-container">
         <div className="brodtext">Tema</div>
         <div className="theme-selector-container">
-          <select onChange={onChange}>
+          <select id="theme-selector" onChange={onChange}>
             <option value="theme-standard">Standard</option>
             <option value="theme-high-contrast">High Contrast</option>
           </select>

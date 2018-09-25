@@ -2,18 +2,20 @@ import net.lightbody.bmp.BrowserMobProxy;
 import net.lightbody.bmp.BrowserMobProxyServer;
 import net.lightbody.bmp.client.ClientUtil;
 import net.lightbody.bmp.proxy.CaptureType;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.apache.commons.io.FileUtils;
+import org.junit.*;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 
@@ -49,27 +51,58 @@ public class ChromeTest {
     private final String ID_SEARCH_FRUKT_TAB = "menu_searchfrukt";
     private final String ID_TEXTFIELD_SEARCH = "search";
     private final String ID_NAME_TOGGLE = "sort-by-name";
+    private final String ID_THEME_SELECTOR = "theme-selector";
     private final String BASE_URL = "http://localhost:8080";
 
+    private static final String SCREENSHOT_FOLDER = "Test Screenshots";
+
+    @Rule
+    public TestWatcher screenshotRule = new TestWatcher() {
+        @Override
+        protected void failed(Throwable e, Description description) {
+
+            File reportsDirectory = new File(SCREENSHOT_FOLDER);
+            if (!reportsDirectory.exists()) {
+                reportsDirectory.mkdir();
+            }
+
+            String methodName = description.getMethodName();
+            String fileName = description.getTestClass().getSimpleName() + "." + methodName + ".png";
+
+            try {
+                File destiny = new File( SCREENSHOT_FOLDER + "/" + fileName);
+                FileUtils.copyFile(((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE), destiny);
+            } catch (IOException ioe) {
+                throw new RuntimeException(ioe);
+            }
+        }
+    };
+
     @BeforeClass
-    public static void setUp() {
+    public static void setUp() throws IOException {
+
+        File reportsDirectory = new File(SCREENSHOT_FOLDER);
+        if (reportsDirectory.exists()) {
+            FileUtils.cleanDirectory(reportsDirectory);
+        }
+
         // start the proxy
         proxy = new BrowserMobProxyServer();
         proxy.start(0);
+        proxy.enableHarCaptureTypes(CaptureType.REQUEST_CONTENT, CaptureType.RESPONSE_CONTENT);
+        proxy.addHeader("X-PERSONR", "19880301-1234");
 
         // get the Selenium proxy object
         Proxy seleniumProxy = ClientUtil.createSeleniumProxy(proxy);
 
-        // configure it as a desired capability
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
-
-        proxy.enableHarCaptureTypes(CaptureType.REQUEST_CONTENT, CaptureType.RESPONSE_CONTENT);
-
-        proxy.addHeader("X-PERSONR", "19880301-1234");
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.setCapability(CapabilityType.PROXY, seleniumProxy);
+        chromeOptions.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
+        chromeOptions.addArguments("--headless");
 
         System.setProperty("webdriver.chrome.driver", ChromeTest.class.getResource("chromedriver").getFile());
-        driver = new ChromeDriver(capabilities);
+        driver = new ChromeDriver(chromeOptions);
+        driver.manage().window().setSize(new Dimension(2048, 1356));
     }
 
     @Test
@@ -77,7 +110,8 @@ public class ChromeTest {
 
         driver.get(BASE_URL);
 
-        waitAndGetElementById(ID_SEARCH_FRUKT_TAB).click();
+        WebElement searchTab = waitAndGetElementById(ID_SEARCH_FRUKT_TAB);
+        searchTab.click();
 
         waitAndGetElementById(ID_TEXTFIELD_SEARCH).sendKeys("Päron" + Keys.ENTER);
 
@@ -85,11 +119,10 @@ public class ChromeTest {
         waitForTextByXPath(FIRST_ROW_AND_FIRST_COLUMN, "Kafferummet 101");
 
         List rows = table.findElements(By.tagName("tr"));
-        Assert.assertEquals(10, rows.size());
+        Assert.assertEquals("Expected 50 Rows, was" + rows.size(), 50, rows.size());
 
         waitAndGetElementById(ID_NAME_TOGGLE).click();
         waitForTextByXPath(FIRST_ROW_AND_FIRST_COLUMN, "96");
-
     }
 
     @Test
@@ -204,6 +237,18 @@ public class ChromeTest {
         Assert.assertEquals("Inga fruktkorgar hittade.", noItemsTextElement.getText());
     }
 
+    @Test
+    public void changeTheme() {
+        driver.get(BASE_URL);
+        waitAndGetElementByClassName("theme-standard");
+
+        Select themeSelector = getSelect(ID_THEME_SELECTOR);
+        themeSelector.selectByValue("theme-high-contrast");
+
+        waitAndGetElementByClassName("theme-high-contrast");
+
+    }
+
     @AfterClass
     public static void cleanUp() {
         if (driver != null) {
@@ -238,14 +283,16 @@ public class ChromeTest {
         return element.getAttribute("class").contains(className);
     }
 
-    private void getAllPaginationElements() {
+    private Select getSelect(String id) {
+        return new Select(waitAndGetElementById(id));
+    }
 
+    private void getAllPaginationElements() {
         this.firstPageButton = waitAndGetElementById(ID_FIRST_PAGE_BUTTON);
         this.previousPageButton = waitAndGetElementById(ID_PREVIOUS_PAGE_BUTTON);
         this.lastPageButton = waitAndGetElementById(ID_LAST_PAGE_BUTTON);
         this.nextPageButton = waitAndGetElementById(ID_NEXT_PAGE_BUTTON);
-        this.limitSelector = new Select(waitAndGetElementById(ID_LIMIT_SELECTOR));
-        pageInfo = waitAndGetElementById("pageInfo");
+        this.limitSelector = getSelect(ID_LIMIT_SELECTOR);
+        this.pageInfo = waitAndGetElementById(ID_PAGEINFO);
     }
-
 }
