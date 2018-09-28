@@ -1,6 +1,125 @@
 import { flattenArray, generateGuid } from '../util/Util';
 import { virtualDOM } from '../main/transpiler';
 
+const mergeElements = (currentElement, newElement) => {
+  if (!compareElements(currentElement, newElement)) {
+    copyElement(newElement, currentElement);
+  }
+
+  const currentChildren = [...currentElement.childNodes];
+  const newChildren = [...newElement.childNodes];
+  const addedElements = [];
+  const elementsToKeep = [];
+
+  for (let i = 0; i < newChildren.length; ++i) {
+    const foundElement = false;
+    for (let j = 0; j < currentChildren.length; ++j) {
+      if (elementsToKeep.indexOf(j) !== -1) {
+        continue;
+      }
+      if (newChildren[i].tagName === currentChildren[j].tagName) {
+        mergeElements(currentChildren[j], newChildren[i]);
+        elementsToKeep.push(j);
+        foundElement = true;
+        addedElements.push(currentChildren[j]);
+        break;
+      }
+    }
+
+    if (!foundElement) {
+      if (i === 0) {
+        if (currentElement.childNodes.length === 0) {
+          currentElement.appendChild(newChildren[i]);
+        } else {
+          currentElement.insertBefore(
+            newChildren[i],
+            currentElement.childNodes[i]
+          );
+        }
+      } else {
+        currentElement.insertBefore(
+          newChildren[i],
+          addedElements[i - 1].nextSibling
+        );
+      }
+      addedElements.push(newChildren[i]);
+    }
+  }
+
+  for (let i = 0; i < currentChildren.length; ++i) {
+    if (elementsToKeep.indexOf(i) === -1) {
+      currentElement.removeChild(currentChildren[i]);
+    }
+  }
+};
+
+const copyElement = (copyFrom, copyTo) => {
+  if (typeof copyTo.tagName === 'undefined') {
+    copyTo.nodeValue = copyFrom.nodeValue;
+    return;
+  }
+
+  if (copyTo.value !== copyFrom.value) {
+    copyTo.value = copyFrom.value;
+  }
+
+  const oldAttributeNames = copyTo.getAttributeNames();
+
+  for (let attributeName of copyFrom.getAttributeNames()) {
+    const fromValue = copyFrom.getAttribute(attributeName);
+
+    if (
+      !copyTo.hasAttribute(attributeName) ||
+      copyTo.getAttribute(attributeName) !== fromValue
+    ) {
+      copyTo.setAttribute(attributeName, fromValue);
+    }
+
+    const index = oldAttributeNames.indexOf(attributeName);
+    if (index > -1) {
+      oldAttributeNames.splice(index, 1);
+    }
+  }
+
+  for (let attributeName of oldAttributeNames) {
+    copyTo.removeAttribute(attributeName);
+  }
+};
+
+const compareElements = (elementA, elementB) => {
+  if (elementA.tagName !== elementB.tagName) {
+    return false;
+  }
+
+  if (
+    typeof elementA.attributes === 'undefined' &&
+    typeof elementB.attributes === 'undefined'
+  ) {
+    return elementA.nodeValue === elementB.nodeValue;
+  }
+
+  if (
+    elementA.getAttributeNames().length !== elementB.getAttributeNames().length
+  ) {
+    return false;
+  }
+
+  for (let attributeName of elementB.getAttributeNames()) {
+    if (
+      elementA.getAttribute(attributeName) !==
+      elementB.getAttribute(attributeName)
+    ) {
+      return false;
+    }
+  }
+
+  if (elementA.value !== elementB.value) {
+    return false;
+  }
+
+  return true;
+};
+
 export class Component {
   // Creates default versions of always existing variables
   constructor(props) {
@@ -53,36 +172,41 @@ export class Component {
       return;
     }
 
-    let oldSelf = this._self;
-    this._self = this.render();
-    if (!this._self) {
-      return;
-    }
+    let newSelf = this.render();
 
-    // Removes all but one element from the old component
-    if (oldSelf.constructor === Array) {
-      oldSelf = flattenArray(oldSelf);
-      for (let i = 1; i < oldSelf.length; ++i) {
-        parent.removeChild(oldSelf[i]);
-      }
-      oldSelf = oldSelf[0];
-    }
+    console.log(this, newSelf, this._self);
 
-    // Replaces whats left of the old component with the new component
-    if (this._self.constructor === Array) {
-      let sibling;
-      for (let node of flattenArray(this._self)) {
-        if (oldSelf) {
-          parent.replaceChild(node, oldSelf);
-          oldSelf = null;
-          sibling = node;
-        } else {
-          sibling.parentNode.insertBefore(node, sibling.nextSibling);
-        }
-      }
-    } else {
-      parent.replaceChild(this._self, oldSelf);
-    }
+    mergeElements(this._self, newSelf);
+    // let oldSelf = this._self;
+    // this._self = this.render();
+    // if (!this._self) {
+    //   return;
+    // }
+
+    // // Removes all but one element from the old component
+    // if (oldSelf.constructor === Array) {
+    //   oldSelf = flattenArray(oldSelf);
+    //   for (let i = 1; i < oldSelf.length; ++i) {
+    //     parent.removeChild(oldSelf[i]);
+    //   }
+    //   oldSelf = oldSelf[0];
+    // }
+
+    // // Replaces whats left of the old component with the new component
+    // if (this._self.constructor === Array) {
+    //   let sibling;
+    //   for (let node of flattenArray(this._self)) {
+    //     if (oldSelf) {
+    //       parent.replaceChild(node, oldSelf);
+    //       oldSelf = null;
+    //       sibling = node;
+    //     } else {
+    //       sibling.parentNode.insertBefore(node, sibling.nextSibling);
+    //     }
+    //   }
+    // } else {
+    //   parent.replaceChild(this._self, oldSelf);
+    // }
 
     virtualDOM.rerenderedComponent(this);
   }

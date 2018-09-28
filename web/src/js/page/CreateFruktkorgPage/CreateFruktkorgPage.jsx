@@ -16,7 +16,7 @@ export class CreateFruktkorgPage extends Component {
     const { frukter, fruktkorgName } = this.createState();
 
     if (fruktkorgName || frukter.length > 0) {
-      return 'Det finns osparade ändringar, är du säker på att du vill lämna sidan?';
+      // return 'Det finns osparade ändringar, är du säker på att du vill lämna sidan?';
     }
 
     return null;
