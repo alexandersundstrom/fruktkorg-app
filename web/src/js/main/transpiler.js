@@ -17,6 +17,7 @@ const dom = (tag, attrs, ...children) => {
 
         const self = component.render();
         if (self) {
+          self.setAttribute('data-dom-id', component._id);
           component._self = self;
         }
         // Adding the component to the virtual DOM

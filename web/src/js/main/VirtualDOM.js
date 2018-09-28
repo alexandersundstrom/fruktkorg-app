@@ -46,13 +46,10 @@ export class VirtualDOM {
    */
   rerenderedComponent(component) {
     const wrapper = this._findWrapper(component._id, this.componentTree);
-    console.log('rerender 1');
     if (wrapper) {
-      console.log('rerender 2');
       // Readds the component to the component tree
       this._reconcileComponents(wrapper);
     }
-    console.log('rerender 3');
   }
 
   /**
@@ -71,19 +68,19 @@ export class VirtualDOM {
     rootWrapper.childWrappers = [];
     // Reverses the order as it will always read top to bottom with the most inner element first. Doing so will
     // ensure that we start with the inner most children and working our way outwards
-    console.log('reconcile 1');
     for (let wrapper of this.pendingWrappers.reverse()) {
-      console.log('reconcile 2', wrapper);
-      // Finding the closes parent
+      // Finding the components parent element, as it might be changed after rerendering.
+      const parentElement = $(`*[data-dom-id="${wrapper.component._id}"]`)[0];
+      wrapper.component._self = parentElement || null;
+
+      // Finding the closest parent
       const parent = this._findParent(rootWrapper, wrapper);
       if (!parent) {
         continue;
       }
-      console.log('reconcile 3');
       wrapper.parentWrapper = parent;
       parent.childWrappers.push(wrapper);
     }
-    console.log('reconcile 4');
     // Calling the mount function to the newly added component
     this._mount(rootWrapper);
     this.pendingWrappers = [];

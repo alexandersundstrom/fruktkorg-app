@@ -1,6 +1,13 @@
 import { flattenArray, generateGuid } from '../util/Util';
 import { virtualDOM } from '../main/transpiler';
 
+/**
+ * Makes one element look like anohter by adding/removing attributes and values,
+ * and/or removing/adding elements.
+ *
+ * @param {HTMLElement} currentElement  The element to be changed.
+ * @param {HTMLElement} newElement      The element to be copied from.
+ */
 const mergeElements = (currentElement, newElement) => {
   if (!compareElements(currentElement, newElement)) {
     copyElement(newElement, currentElement);
@@ -53,6 +60,12 @@ const mergeElements = (currentElement, newElement) => {
   }
 };
 
+/**
+ * Copies values and attributes from one element to another.
+ *
+ * @param {HTMLElement} copyFrom  The element to copy from.
+ * @param {HTMLElement} copyTo    The element that gets copied to.
+ */
 const copyElement = (copyFrom, copyTo) => {
   if (typeof copyTo.tagName === 'undefined') {
     copyTo.nodeValue = copyFrom.nodeValue;
@@ -86,6 +99,14 @@ const copyElement = (copyFrom, copyTo) => {
   }
 };
 
+/**
+ * Compares two elements.
+ *
+ * @param {HTMLElement} elementA The first element to be compared.
+ * @param {HTMLElement} elementB The second element to be compared.
+ *
+ * @return {Boolean} comparation result.
+ */
 const compareElements = (elementA, elementB) => {
   if (elementA.tagName !== elementB.tagName) {
     return false;
@@ -174,39 +195,7 @@ export class Component {
 
     let newSelf = this.render();
 
-    console.log(this, newSelf, this._self);
-
     mergeElements(this._self, newSelf);
-    // let oldSelf = this._self;
-    // this._self = this.render();
-    // if (!this._self) {
-    //   return;
-    // }
-
-    // // Removes all but one element from the old component
-    // if (oldSelf.constructor === Array) {
-    //   oldSelf = flattenArray(oldSelf);
-    //   for (let i = 1; i < oldSelf.length; ++i) {
-    //     parent.removeChild(oldSelf[i]);
-    //   }
-    //   oldSelf = oldSelf[0];
-    // }
-
-    // // Replaces whats left of the old component with the new component
-    // if (this._self.constructor === Array) {
-    //   let sibling;
-    //   for (let node of flattenArray(this._self)) {
-    //     if (oldSelf) {
-    //       parent.replaceChild(node, oldSelf);
-    //       oldSelf = null;
-    //       sibling = node;
-    //     } else {
-    //       sibling.parentNode.insertBefore(node, sibling.nextSibling);
-    //     }
-    //   }
-    // } else {
-    //   parent.replaceChild(this._self, oldSelf);
-    // }
 
     virtualDOM.rerenderedComponent(this);
   }
