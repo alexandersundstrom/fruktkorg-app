@@ -69,7 +69,7 @@ const dom = (tag, attrs, ...children) => {
             property.startsWith('on') &&
             typeof attrs[property] === 'function'
           ) {
-            element.addEventListener(
+            $(element).on(
               property.substring(2, property.length).toLocaleLowerCase(),
               attrs[property]
             );

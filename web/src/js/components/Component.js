@@ -97,6 +97,19 @@ const copyElement = (copyFrom, copyTo) => {
   for (let attributeName of oldAttributeNames) {
     copyTo.removeAttribute(attributeName);
   }
+
+  const jCopyTo = $(copyTo).off();
+  const events = $._data($(copyFrom)[0], 'events');
+
+  if (events) {
+    for (let prop in events) {
+      if (events.hasOwnProperty(prop)) {
+        for (let event of events[prop]) {
+          jCopyTo.on(event.type, event.handler);
+        }
+      }
+    }
+  }
 };
 
 /**
@@ -109,6 +122,13 @@ const copyElement = (copyFrom, copyTo) => {
  */
 const compareElements = (elementA, elementB) => {
   if (elementA.tagName !== elementB.tagName) {
+    return false;
+  }
+
+  if (
+    JSON.stringify($._data(elementA, 'events')) !==
+    JSON.stringify($._data(elementB, 'events'))
+  ) {
     return false;
   }
 
