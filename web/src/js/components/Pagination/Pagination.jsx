@@ -131,6 +131,7 @@ export class Pagination extends Component {
           <div className="flex-div">
             <div className="page">
               <a
+                title="Gå till första sidan"
                 id="firstPageButton"
                 onClick={() => this.goToFirstPage()}
                 className={currentPage === firstPage ? 'disabled' : ''}
@@ -140,6 +141,7 @@ export class Pagination extends Component {
             </div>
             <div className="page">
               <a
+                title="Gå till föregående sida"
                 id="previousPageButton"
                 onClick={() => this.goToPreviousPage()}
                 className={currentPage === firstPage ? 'disabled' : ''}
@@ -177,6 +179,7 @@ export class Pagination extends Component {
           <div className="flex-div">
             <div className="page">
               <a
+                title="Gå till nästa sida"
                 id="nextPageButton"
                 className={
                   currentPage === this.getLastPageNumber() ? 'disabled' : ''
@@ -188,6 +191,7 @@ export class Pagination extends Component {
             </div>
             <div className="page">
               <a
+                title="Gå till sista sidan"
                 id="lastPageButton"
                 className={
                   currentPage === this.getLastPageNumber() ? 'disabled' : ''

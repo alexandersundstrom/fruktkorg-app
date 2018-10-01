@@ -116,6 +116,11 @@ export class PaginationTable extends Component {
           <td>
             {column.comparator ? (
               <a
+                title={
+                  sortedBy.key === column.key && sortedBy.ascending
+                    ? 'Sortera fallande'
+                    : 'Sortera stigande'
+                }
                 id={`sort-by-${column.key}`}
                 onClick={event => {
                   event.preventDefault();
