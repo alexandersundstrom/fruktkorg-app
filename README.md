@@ -30,6 +30,8 @@ For the Selenium test to work, you need to have an `WebDriver` installed, like t
 Edit the `$PATH` in your `bash_profile` and add 
 the folder where this driver is located. 
 
+The tests are to be fixed later on, as problem asires with setting the request headers which are nedded.
+
 
 ### Run
 * Launch Application.java

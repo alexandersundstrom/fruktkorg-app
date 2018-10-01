@@ -23,17 +23,10 @@ ${PROXY PATH}    ./browsermob-proxy-2.1.4/bin/browsermob-proxy
 
 *** Keywords ***
 Open Browser To Login Page
-    ${PERSON HEADER}=       Create Dictionary   X-PERSONR="19880301-1234"
-    ${PORT}=       Create Dictionary   port=${8082}
-    Start Local Server  path=${PROXY PATH}      options=${PORT}
-    ${BrowserMob_Proxy}=    Create Proxy
-    Set Headers         headers=${PERSON HEADER}
-    Create Webdriver        ${BROWSER}    ${BrowserMob_Proxy}
     Open Browser    ${BASE URL}    ${BROWSER}
     Maximize Browser Window
     Set Selenium Speed    ${DELAY}
     Welcome Page Should Be Open
-    Stop Local Server
 
 Input Username
     [Arguments]    ${username}
