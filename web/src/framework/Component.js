@@ -1,4 +1,4 @@
-import { flattenArray, generateGuid } from '../components/util/Util';
+import { generateGuid } from '../components/util/Util';
 import { virtualDOM } from './Transpiler';
 
 /**
