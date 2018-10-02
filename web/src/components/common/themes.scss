@@ -29,6 +29,10 @@ $themes: (
   )
 );
 
+/**
+Used on conjunction with @themed function to provide theming of css. See at common.scss as a reference how to use the methods.
+Used by Themelselector.jsx as a reference for toggling themes.
+ */
 @mixin themify($themes: $themes) {
   @each $theme, $map in $themes {
     .theme-#{$theme} & {
