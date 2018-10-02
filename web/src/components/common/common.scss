@@ -1,4 +1,7 @@
 @import 'themes';
+/**
+Provides common styling used by the components.
+ */
 
 body {
   @include themify($themes) {
