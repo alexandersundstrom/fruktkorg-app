@@ -1,0 +1,70 @@
+@import '../themes';
+
+.menu {
+  @include themify($themes) {
+    background-color: themed('secondary-bg-color');
+  }
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 1000;
+}
+
+.menu-container {
+  margin: 0 auto 0 0;
+  max-width: 960px;
+}
+
+.menu-container li {
+  @include themify($themes) {
+    border-top: 1px solid themed('primary-bg-color');
+  }
+}
+
+.menu-container li.active {
+  @include themify($themes) {
+    color: themed('focused-link');
+    border-bottom: 3px solid themed('secondary-line-color');
+  }
+}
+
+.menu-container a {
+  @include themify($themes) {
+    color: themed('brodtext-color');
+  }
+  display: inline-block;
+  font: bold 100% Arial, serif;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 15px 1.5em;
+}
+
+.menu-container a:hover {
+  @include themify($themes) {
+    color: themed('navigation-focused-link-color');
+    background-color: themed('navigation-focused-link-bg-color');
+  }
+}
+
+.menu-container .nav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-container .nav li {
+  border-left: 0;
+  display: inline-block;
+  float: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  @include themify($themes) {
+    border-left: 1px solid themed('primary-line-color');
+  }
+}
+
+.menu-container .nav li a {
+  border: 0;
+  display: block;
+  padding: 15px 1.5em;
+}
