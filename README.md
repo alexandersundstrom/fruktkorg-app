@@ -38,7 +38,7 @@ The tests are to be fixed later on, as problem asires with setting the request h
 * for the 
 
 ## WEB module
-This is the GUI. It's using webpack that compiles js and scss file, and starts a server that delivers the GUI.
+This is the GUI. It's using webpack that compiles jsx and scss file, and starts a server that delivers the GUI.
 
 ### Setup
 
@@ -48,10 +48,10 @@ This is the GUI. It's using webpack that compiles js and scss file, and starts a
 This will install [Prettier](https://prettier.io/). It's used for formatting js, jsx and scss files.
 Many IDEs, like IntelliJ also has a plugin that can be used for formatting together with *Prettier*. 
 
-There is also a `post-commit` and `pre-commit` hook added. Install those and *Prettier* will executed when commiting. 
+There is also a `post-commit` and `pre-commit` hook added. Install those and *Prettier* will execute when commiting code. 
 
 Npm also installs [JSDoc 3](https://www.npmjs.com/package/jsdoc). This creats html views for javascript documentation. 
-The output folder is `web/out`. It's created once you run `npm run dev` or `npm run jsdoc`. 
+The output folder is `web/jsdoc`. It's created once you run `npm run dev` or `npm run jsdoc`. 
 
 ### Run
 * `npm run dev` and open [localhost:8080](http://localhost:8080)
