@@ -2,7 +2,7 @@ import { flattenArray, generateGuid } from '../components/util/Util';
 import { virtualDOM } from './Transpiler';
 
 /**
- * Makes one element look like anohter by adding/removing attributes and values,
+ * Makes one element look like another by adding/removing attributes and values,
  * and/or removing/adding elements.
  *
  * @param {HTMLElement} currentElement  The element to be changed.
@@ -223,7 +223,7 @@ export class Component {
   /**
    * Sets the current state, also triggers a rerender.
    *
-   * @param {Object} newState The new state object, will overrite the exiting properties, add new properties and leave old properties.
+   * @param {Object} newState The new state object, will override the exiting properties, add new properties and leave old properties.
    */
   setState(newState) {
     let madeChange = false;
