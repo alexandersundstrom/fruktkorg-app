@@ -1,12 +1,12 @@
 module.exports = {
-  entry: './src/entrypoint.js',
+  entry: './src/index.js',
   output: {
     filename: 'bundle.js',
     publicPath: '/'
   },
   devtool: 'source-map',
   devServer: {
-    contentBase: './dist'
+    contentBase: './src'
   },
   mode: 'development',
   module: {
