@@ -12,6 +12,24 @@ This module represents the backend and is based on Spring Boot and Spring Securi
 `personNummer` in `PersonService`.
 * This can be done through browser extensions, like [Modify Header Value](https://chrome.google.com/webstore/detail/modify-header-value-http/cbdibdfhahmknbkkojljfncpnhmacdek ) for Chrome.
 
+### Run
+* Launch Application.java
+
+#### Tests
+
+There are two different test framework used
+* JUnit
+* Robot  Framework
+
+##### JUnit
+
+The Tests are located in `ChromeTest.java`. They are executed in a headless browser and if anything fails a screenshot is taken.
+
+##### Robot Framework
+
+*The tests are to be fixed later on, as problem asires with setting the request headers which are needed.*
+
+
 A precondition for running the tests is having 
 [Robot Framework](http://robotframework.org/) and [SeleniumLibrary ](https://github.com/robotframework/SeleniumLibrary) 
 installed, and they in turn require [Python](http://python.org/). Robot Framework installation instructions cover both 
@@ -29,13 +47,6 @@ sudo pip install -U robotframework-browsermobproxylibraryi
 For the Selenium test to work, you need to have an `WebDriver` installed, like the [ChromeDriver](http://chromedriver.chromium.org/getting-started). 
 Edit the `$PATH` in your `bash_profile` and add 
 the folder where this driver is located. 
-
-The tests are to be fixed later on, as problem asires with setting the request headers which are nedded.
-
-
-### Run
-* Launch Application.java
-* for the 
 
 ## WEB module
 This is the GUI. It's using webpack that compiles jsx and scss file, and starts a server that delivers the GUI.
